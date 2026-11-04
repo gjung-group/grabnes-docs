@@ -27,10 +27,10 @@ myst_enable_extensions = [
     "amsmath",
 ]
 
-templates_path = []
+templates_path = ["_templates"]
 
 # The repository root is the Sphinx source directory, so everything that is
-# not website content must be excluded: build output, the README/AGENTS docs,
+# not website content must be excluded: build output, the README/CLAUDE docs,
 # and the old (2022) sphinx tree kept for reference until migration ends.
 exclude_patterns = [
     "_build",
@@ -38,7 +38,7 @@ exclude_patterns = [
     ".venv/*",
     "grabnes/*",
     "README.md",
-    "AGENTS.md",
+    "CLAUDE.md",
     # README.md files inside downloadable example folders are data, not pages
     "assets/downloads/**",
     "Thumbs.db",
@@ -48,7 +48,7 @@ exclude_patterns = [
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "furo"
-html_title = "GRABNES documentation"
+html_title = "GRABNES"
 # assets/ holds images, sample inputs and static files; its static/ subfolder
 # is served under _static/ by Sphinx.
 html_static_path = ["assets/static"]
@@ -57,6 +57,18 @@ html_logo = "assets/static/logo1.png"
 html_favicon = "assets/static/logo-icon.png"
 
 html_theme_options = {}
+
+# Repository link buttons right below the brand (logo + title), above the search box.
+html_sidebars = {
+    "**": [
+        "sidebar/brand.html",
+        "sidebar/repo-links.html",
+        "sidebar/search.html",
+        "sidebar/scroll-start.html",
+        "sidebar/navigation.html",
+        "sidebar/scroll-end.html",
+    ]
+}
 
 # External links that should not be checked during builds
 nitpick_ignore = []

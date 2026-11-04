@@ -84,3 +84,47 @@ aside.task {
 aside.todo {
   background: var(--color-warning-background);
 }
+
+/* Live GitHub badges (shields.io) under the sidebar brand */
+.repo-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0 var(--sidebar-item-spacing-horizontal) 0.6rem;
+}
+.repo-links a {
+  line-height: 0;
+}
+.repo-links img {
+  height: 20px;
+}
+
+/* Sidebar brand: wordmark logo + refined subtitle (replaces the plain title) */
+.sidebar-brand {
+  padding-bottom: 0.4rem;
+}
+.sidebar-brand .sidebar-logo-container {
+  margin: 0.2rem 0 0.7rem;
+}
+.brand-kicker {
+  display: block;
+  width: 100%;
+  padding-top: 0.55rem;
+  border-top: 2px solid var(--color-brand-primary);
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-sidebar-brand-text);
+}
+.brand-tagline {
+  display: block;
+  margin-top: 0.3rem;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-foreground-muted);
+}

@@ -17,10 +17,8 @@ file is also downloadable below.
 | {ref}`07 <ex-07>` | Graphene on hBN at four twist angles: density of states | Ready, 5 min |
 | {ref}`08 <ex-08>` | Twisted bilayer graphene at 1.08 degrees: flat bands | Ready, 2 min |
 | {ref}`09 <ex-09>` | Alternating-twist trilayer at 1.54 degrees, structure read from files | Ready, 3 min |
-| {ref}`10 <ex-10>` | Pristine graphene ARPES intensity: spectral function I(k,E) along a path, constant-energy map I(kx,ky), and a coherent (Nishi-mode) map near K+ | Ready |
-| {ref}`11 <ex-11>` | hBN ARPES intensity: constant-energy map I(kx,ky) ready, spectral function along a path in progress | Ready, map |
-| {ref}`12 <ex-12>` | Graphene on hBN ARPES spectral function I(k,E) | Work in progress |
-| {ref}`13 <ex-13>` | Twisted bilayer ARPES spectral function I(k,E) | Work in progress |
+| {ref}`10 <ex-10>` | Twisted bilayer at 6 degrees: spectral function unfolded on the graphene lattice, per layer | Ready, 10 s |
+| {ref}`11 <ex-11>` | Alternating-twist trilayer at 6 degrees: the same, per layer | Ready, 30 s |
 
 ## Quick start
 
@@ -43,9 +41,10 @@ Each example contains its input, a short explanation, a plotting script, and
 reference data from a known-good calculation. Examples 01 and 02 run in a few
 seconds; examples 03 and 04 use a small, 76-atom commensurate twisted bilayer
 so they remain practical laptop checks rather than production calculations.
-Examples 05 to 09 are moire systems at realistic sizes.
+Examples 05 to 09 are moire systems at realistic sizes. Examples 10 and 11 use small moire
+cells, because their spectral functions need a direct diagonalization at every k-point.
 
-Examples 01 to 04 use exact diagonalization. Examples 05, 08 and 09 project the
+Examples 01 to 04, 10 and 11 use exact diagonalization. Examples 05, 08 and 09 project the
 Hamiltonian on plane waves around one graphene valley, which makes cells of
 several thousand atoms a matter of minutes; each of them states how the
 reduction was checked against exact diagonalization. Examples 06 and 07 use
