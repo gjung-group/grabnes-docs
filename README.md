@@ -4,12 +4,31 @@
   <img src="assets/static/logo1.png" alt="GRABNES logo" width="480">
 </p>
 
-The source of the [GRABNES](https://github.com/gjung-group/grabnes) project
-website (GRAphene/BN Electronic Structure, a Fortran tight-binding package for
-layered 2D materials), published with GitHub Pages. The Fortran code itself
-lives in the separate code repository.
+Source of the documentation website for **GRABNES**, published with GitHub
+Pages at <https://gjung-group.github.io/grabnes-docs/>. The Fortran code itself
+lives in the separate [code repository](https://github.com/gjung-group/grabnes).
 
-The website features:
+## About GRABNES
+
+GRABNES (**GRA**phene/**B**N **E**lectronic **S**tructure) is a Fortran
+tight-binding package from the
+[gjung-group](https://github.com/gjung-group) for layered 2D materials:
+graphene, hBN, twisted bilayer and multilayer graphene, graphene on hBN, and
+related heterostructures.
+
+- **Moiré supercells:** builds commensurate cells with controllable twist
+  angle and layer sliding, and interfaces with LAMMPS for structural
+  relaxation.
+- **Observables:** band structures, density of states (Lanczos recursion and
+  exact diagonalization), unfolded spectral functions for comparison with
+  ARPES, LDOS, probability densities, Kubo–Greenwood conductivity, and
+  magnetic-field (Landau-level) DOS with disorder.
+- **Tight-binding models:** F2G2 intralayer models from maximally localized
+  Wannier functions, reparametrized two-center (TC) interlayer models, hybrid
+  F2G2+TC models, and the SHE model.
+- **Performance:** OpenMP parallelization.
+
+## What the website covers
 - Theory of the implemented models and observables.
 - Worked examples and step-by-step tutorials.
 - A user guide with the complete input-key reference.
