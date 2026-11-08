@@ -62,7 +62,7 @@ include files with `[_TYPE]` placeholders and cannot be parsed standalone.
 
 ```{note}
 The reference page is regenerated with
-[`tools/gen_api_reference.py`](https://github.com/gjung-group/grabnes.github.com/blob/main/tools/gen_api_reference.py)
+[`tools/gen_api_reference.py`](https://github.com/gjung-group/grabnes-docs/blob/main/tools/gen_api_reference.py)
 (`uv run python tools/gen_api_reference.py`), which parses the sources with
 [Ford](https://forddocs.readthedocs.io). The code repository remains the
 source of truth — please report any discrepancy so the page can be

@@ -1,4 +1,4 @@
-# grabnes.github.com
+# grabnes-docs
 
 <p align="center">
   <img src="assets/static/logo1.png" alt="GRABNES logo" width="480">
@@ -69,7 +69,7 @@ The CI build treats warnings as errors; check with
 
 ## Deployment
 
-The live site is at <https://gjung-group.github.io/grabnes.github.com/>.
+The live site is at <https://gjung-group.github.io/grabnes-docs/>.
 `.github/workflows/docs.yml` builds the site to `public/` on every push to
 `main` and deploys it to GitHub Pages (Settings → Pages → "GitHub Actions").
 Pull requests are built too (with `-W`) but not deployed.

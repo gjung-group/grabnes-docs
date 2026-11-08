@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 1. What this repository is
 
-This repo (`gjung-group/grabnes.github.com`) is the **source of the GRABNES project website**, published via GitHub Pages. It does **not** contain the Fortran code itself (that lives in the separate `grabnes` code repository, sibling `../grabnes`, `github.com/gjung-group/grabnes`).
+This repo (`gjung-group/grabnes-docs`, formerly `grabnes.github.com`) is the **source of the GRABNES project website**, published via GitHub Pages. It does **not** contain the Fortran code itself (that lives in the separate `grabnes` code repository, sibling `../grabnes`, `github.com/gjung-group/grabnes`).
 
 GRABNES (**GRA**phene/**B**N **E**lectronic **S**tructure) is a Fortran tight-binding package for layered 2D materials — graphene, hBN, twisted bilayer and multilayer graphene, graphene on hBN, etc. Key capabilities (from the old docs, `index.rst`):
 
@@ -27,7 +27,7 @@ uv run python tools/gen_api_reference.py [--src PATH] [--out PATH]   # regenerat
 
 There are no tests or linters; "passes" means the `-W` Sphinx build succeeds.
 
-CI (`.github/workflows/docs.yml`): push to `main` → `uv sync` → `uv run sphinx-build -b html -W --keep-going . public` → `upload-pages-artifact` → GitHub Pages (Settings → Pages → "GitHub Actions"). Also builds on PRs; deploys only from `main`. Live site: <https://gjung-group.github.io/grabnes.github.com/>.
+CI (`.github/workflows/docs.yml`): push to `main` → `uv sync` → `uv run sphinx-build -b html -W --keep-going . public` → `upload-pages-artifact` → GitHub Pages (Settings → Pages → "GitHub Actions"). Also builds on PRs; deploys only from `main`. Live site: <https://gjung-group.github.io/grabnes-docs/>.
 
 ## 3. Current contents of this repo
 
