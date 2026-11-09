@@ -4,8 +4,8 @@
 Practical documentation for running GRABNES, from the
 [code repository](https://github.com/gjung-group/grabnes): how the input file
 works, how to write it in YAML or JSON with the converter of the code
-repository, the complete list of input keys, and the TAPW + spin-orbit input
-interface.
+repository, the complete list of input keys, how stacking displacements of
+relaxed moiré structures are given, and the TAPW + spin-orbit input interface.
 
 ```{toctree}
 :maxdepth: 2
@@ -13,6 +13,7 @@ interface.
 input-file
 yaml-json-input
 input-keys
+stacking-displacements
 tapw-soc-input
 ```
 
