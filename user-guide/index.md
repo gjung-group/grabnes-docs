@@ -3,13 +3,15 @@
 
 Practical documentation for running GRABNES, from the
 [code repository](https://github.com/gjung-group/grabnes): how the input file
-works, the complete list of input keys, and the TAPW + spin-orbit input
+works, how to write it in YAML or JSON with the converter of the code
+repository, the complete list of input keys, and the TAPW + spin-orbit input
 interface.
 
 ```{toctree}
 :maxdepth: 2
 
 input-file
+yaml-json-input
 input-keys
 tapw-soc-input
 ```

@@ -24,6 +24,7 @@ tools/sync-state.json and any change is reported as MANUAL:
     docs/development/README.md        -> development/index.md
     docs/theory/tapw-procedure.tex    -> theory/tapw-procedure.md
     examples/README.md, examples/*/README.md -> examples/*.md
+    tools/input/{gendata,parser,gendata_schema}.py -> user-guide/yaml-json-input.md
 """
 
 from __future__ import annotations
@@ -41,13 +42,20 @@ REPO_URL = "https://github.com/gjung-group/grabnes.git"
 ROOT = Path(__file__).resolve().parent.parent
 STATE = ROOT / "tools" / "sync-state.json"
 SRC_UNITS = "lanczosKuboCode/Src"
-WATCH = ["docs/development/README.md", "docs/theory/tapw-procedure.tex", "examples/README.md"]
+WATCH = [
+    "docs/development/README.md",
+    "docs/theory/tapw-procedure.tex",
+    "examples/README.md",
+    "tools/input/gendata.py",
+    "tools/input/parser.py",
+    "tools/input/gendata_schema.py",
+]
 
 # Directories fully managed by this script (files not upstream any more are removed),
 # except the hand-written index pages.
 MANAGED = {
     "development": {"index.md"},
-    "user-guide": {"index.md"},
+    "user-guide": {"index.md", "yaml-json-input.md"},
     "assets/downloads/examples": set(),
     "assets/images/examples": set(),
 }
