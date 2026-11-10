@@ -20,10 +20,10 @@ uv sync                                                   # create .venv from py
 uv run sphinx-build -b html . _build                      # local preview: open _build/index.html
 uv run sphinx-build -b html -W --keep-going . _build      # what CI runs; must give zero warnings
 uv run python tools/sync_from_code_repo.py [--check]      # sync mirrored files with upstream main
-uv run python tools/gen_api_reference.py [--src PATH] [--out PATH]   # regenerate reference/units.md (sync runs it)
+uv run python tools/gen_api_reference.py [--src PATH] [--out PATH]   # regenerate reference/units.md + reference/api/ (sync runs it)
 ```
 
-**Sync with the code repo.** The source of truth is `main` of `github.com/gjung-group/grabnes` (never a fork or the local `../grabnes`): `sync_from_code_repo.py` shallow-clones it with GitPython and mirrors `docs/development`, `docs/user-guide`, example inputs (→ `assets/downloads/examples/`), reference figures (→ `assets/images/examples/`) and regenerates `reference/units.md`. `--check` only reports drift (exit 1). Hand-written pages derived from upstream (`development/index.md`, `theory/tapw-procedure.md`, `examples/*.md`) are tracked by upstream object hashes in `tools/sync-state.json`; the script prints `MANUAL` when their source changed — update them by hand, verbatim, then re-run to record the new baseline. `.github/workflows/sync-upstream.yml` runs the sync twice a day (05:17 and 17:17 UTC) against the newest upstream `main` commit whose `regression` workflow passed: clean sync + green `-W` build → committed to `main` and deployed (it dispatches `docs.yml`); `MANUAL` items or a failing build → PR from `sync/upstream` (no further syncs while it is open). Last synced: `7b24d66`.
+**Sync with the code repo.** The source of truth is `main` of `github.com/gjung-group/grabnes` (never a fork or the local `../grabnes`): `sync_from_code_repo.py` shallow-clones it with GitPython and mirrors `docs/development`, `docs/user-guide`, example inputs (→ `assets/downloads/examples/`), reference figures (→ `assets/images/examples/`) and regenerates the API reference (`reference/units.md`, `reference/api/`). `--check` only reports drift (exit 1). Hand-written pages derived from upstream (`development/index.md`, `theory/tapw-procedure.md`, `examples/*.md`) are tracked by upstream object hashes in `tools/sync-state.json`; the script prints `MANUAL` when their source changed — update them by hand, verbatim, then re-run to record the new baseline. `.github/workflows/sync-upstream.yml` runs the sync twice a day (05:17 and 17:17 UTC) against the newest upstream `main` commit whose `regression` workflow passed: clean sync + green `-W` build → committed to `main` and deployed (it dispatches `docs.yml`); `MANUAL` items or a failing build → PR from `sync/upstream` (no further syncs while it is open). Last synced: `7b24d66`.
 
 There are no tests or linters; "passes" means the `-W` Sphinx build succeeds.
 
@@ -81,8 +81,9 @@ benchmarks/                # benchmarks section sources
 development/               # code-structure guide + documents copied from the code
                            # repo (functionality-status, validation, conventions…)
 reference/index.md         # "API Reference" entry page (unit tables, links into units)
-reference/units.md         # generated Fortran unit reference — never hand-edit
-tools/gen_api_reference.py # regenerates reference/units.md (Ford parser over ../grabnes)
+reference/units.md         # generated Fortran unit reference (overview) — never hand-edit
+reference/api/             # generated: one page per Fortran unit — never hand-edit
+tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Ford + Doxygen comments)
 .github/workflows/docs.yml # build + deploy to GitHub Pages
 ```
 
@@ -122,7 +123,7 @@ tools/gen_api_reference.py # regenerates reference/units.md (Ford parser over ..
 5. Do not commit `_build/`, `public/`, `__pycache__`, `.ipynb_checkpoints`, `.DS_Store` (see `.gitignore`).
 6. The old tree under `grabnes/` stays read-only until migration is verified; delete it (and `grabnes.tar.gz`) only in a final, separate commit.
 7. Python tooling: declare deps in `pyproject.toml` (`sphinx`, `furo`, `myst-parser`, `sphinx-design`, `ford`); `uv sync` builds `.venv` from `uv.lock`, and CI installs the same way.
-8. `reference/units.md` is generated (Ford over upstream `main`, run on a comment-normalized temp copy): after upstream changes run `uv run python tools/sync_from_code_repo.py` and commit the result; never hand-edit the file.
+8. `reference/units.md` and `reference/api/*.md` are generated (Ford over upstream `main`, run on a comment-normalized temp copy, plus the Doxygen `@brief`/`@param` blocks and the `!! - \`Key\`:` input-key items of the sources, quoted verbatim): after upstream changes run `uv run python tools/sync_from_code_repo.py` and commit the result; never hand-edit these files.
 9. Commits: small, imperative-mood messages ("Add theory/models page…").
 
 ## 7. Open questions / follow-ups

@@ -11,10 +11,12 @@ This page is the entry point for the API of the GRABNES Fortran code. The
 program is organized as one main program and the modules listed below, in the
 `lanczosKuboCode/Src/` folder of the
 [code repository](https://github.com/gjung-group/grabnes). The complete
-reference — every public procedure with its arguments, generic interfaces,
-public module variables, and the input keys each routine reads with their
-descriptions — is generated directly from the sources and collected on the
-{doc}`units` page.
+reference is generated directly from the sources: the {doc}`units` page
+groups the units by how they are built, and each unit has its own page with
+its procedures (signature, argument declarations and descriptions), generic
+interfaces, derived types, module variables, the units it uses and is used
+by, the input keys each routine reads with their descriptions, and links to
+the definitions in the source at the documented commit.
 
 For what each module does, see {doc}`../development/index`; for the complete
 list of input keys with their types and defaults, see
@@ -62,10 +64,10 @@ The cpp template fragments `MIO/mem_temp.f90` and `MIO/MPI/mpi_type.f90` are
 include files with `[_TYPE]` placeholders and cannot be parsed standalone.
 
 ```{note}
-The reference page is regenerated with
+The reference pages are regenerated with
 [`tools/gen_api_reference.py`](https://github.com/gjung-group/grabnes-docs/blob/main/tools/gen_api_reference.py)
 (`uv run python tools/gen_api_reference.py`), which parses the sources with
 [Ford](https://forddocs.readthedocs.io). The code repository remains the
-source of truth — please report any discrepancy so the page can be
+source of truth — please report any discrepancy so the pages can be
 regenerated.
 ```

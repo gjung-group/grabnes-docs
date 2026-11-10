@@ -128,3 +128,21 @@ aside.todo {
   line-height: 1.35;
   color: var(--color-foreground-muted);
 }
+
+/* Tables of the generated Fortran API reference (reference/api/*.md):
+   full width, wrapping cells, long identifiers allowed to break. */
+table.api-table {
+  width: 100%;
+  table-layout: fixed;
+}
+table.api-table th,
+table.api-table td {
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+table.api-table code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

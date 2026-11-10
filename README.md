@@ -57,7 +57,7 @@ Sections:
 | `user-guide/` | input-file format, the complete input-key reference, TAPW + SOC input |
 | `benchmarks/` | benchmark studies; empty illustration stubs are marked "coming soon" |
 | `development/` | code structure, functionality status, validation, coding conventions, `job.out` output style, known issues, SOC/TAPW notes, release readiness, licensing |
-| `reference/` | API reference entry page + generated Fortran unit reference |
+| `reference/` | API reference entry page + generated Fortran unit reference (overview `units.md`, one page per unit in `api/`) |
 | `assets/` | images, downloadable inputs/scripts/notebooks, logo, fonts, and CSS |
 | `tools/` | sync script for the code repository and the API-reference generator |
 
@@ -65,12 +65,12 @@ Sections:
 
 Part of the content is mirrored from `main` of the code repository
 (`docs/development`, `docs/user-guide`, example inputs and figures), and
-`reference/units.md` is generated from its sources. Never hand-edit mirrored
-files or `reference/units.md`.
+`reference/units.md` and `reference/api/` are generated from its sources.
+Never hand-edit mirrored files or the generated reference.
 
 ```bash
 uv run python tools/sync_from_code_repo.py [--check]   # --check only reports drift (exit 1)
-uv run python tools/gen_api_reference.py               # regenerate reference/units.md
+uv run python tools/gen_api_reference.py               # regenerate reference/units.md + reference/api/
 ```
 
 Hand-written pages derived from upstream are tracked in

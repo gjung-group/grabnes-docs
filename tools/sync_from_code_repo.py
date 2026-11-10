@@ -16,7 +16,7 @@ Mirrored automatically (verbatim copies of tracked files):
                                                    generated upstream: copied, not edited)
     examples/<ex>/ (all but reference/)         -> assets/downloads/examples/<ex>/
     examples/<ex>/reference/*.png               -> assets/images/examples/
-    lanczosKuboCode/Src                         -> reference/units.md (gen_api_reference.py)
+    lanczosKuboCode/Src                         -> reference/units.md, reference/api/ (gen_api_reference.py)
 
 Hand-written pages that are derived from upstream sources cannot be synced
 automatically. Their upstream git object hashes are recorded in
