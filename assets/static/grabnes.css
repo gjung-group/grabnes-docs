@@ -130,7 +130,8 @@ img {
 section:has(> .hero-tagline) > h1 {
   font-size: clamp(1.7rem, 4vw, 2.1rem);
   letter-spacing: -0.02em;
-  margin: 0.4rem 0 0.4rem;
+  /* keep furo's -0.5rem side margins (they offset the heading padding) */
+  margin: 0.4rem -0.5rem;
 }
 section:has(> .hero-tagline) > h1 .headerlink {
   display: none;
