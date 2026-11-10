@@ -1,6 +1,6 @@
 # Keeps the site in step with the GRABNES code repository.
 #
-# Every hour (and on demand) this looks for the newest commit on main of
+# Twice a day (and on demand) this looks for the newest commit on main of
 # gjung-group/grabnes whose `regression` workflow passed. If it is newer than
 # the commit recorded in tools/sync-state.json, the site is synced to it:
 #
@@ -17,7 +17,7 @@ name: sync-upstream
 
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "17 5,17 * * *"   # twice a day, 05:17 and 17:17 UTC
   workflow_dispatch:
 
 permissions:
