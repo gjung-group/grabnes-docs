@@ -1,29 +1,7 @@
-# Welcome to GRABNES's documentation!
-
-**GRABNES** (**GRA**phene/**B**N **E**lectronic **S**tructure) is a Fortran
-tight-binding package for the electronic structure of layered two-dimensional
-materials. The name highlights the two standard materials that can be studied
-with this package by layering them into meaningful configurations. Additional
-2D materials can be included as well by modifying the code.
-
-Out of the box you can build graphene on hBN, twisted bilayer graphene,
-twisted multilayer graphene, hBN-encapsulated single-layer graphene,
-encapsulated bilayer graphene, and more, with full control over the twist
-angle and the sliding between layers. Commensurate cells are built
-automatically to account for periodic boundary conditions.
-
-This documentation covers everything needed to run GRABNES, from installing
-the code to interpreting production results: {doc}`installation` gets you
-compiling (or running in the browser via Colab), {doc}`theory/index` explains
-the physics — tight-binding models, moiré supercells and observables —
-{doc}`examples/index` collects the supported, reproducible example
-calculations, {doc}`tutorials/index` walks through the workflows step by
-step, and {doc}`user-guide/index` documents the input file and every input
-key. Published results are gathered in {doc}`benchmarks/index`, the state of
-the code in {doc}`development/index`, and the Fortran units in
-{doc}`reference/index`.
+# GRABNES
 
 ```{toctree}
+:hidden:
 :maxdepth: 2
 :caption: Contents
 
@@ -37,11 +15,121 @@ development/index
 reference/index
 ```
 
+```{container} hero-tagline
+Tight-binding electronic structure of layered 2D materials
+```
+
+**GRABNES** (**GRA**phene/**B**N **E**lectronic **S**tructure) is a Fortran
+tight-binding package for the electronic structure of layered two-dimensional
+materials. The name highlights the two standard materials that can be studied
+with this package by layering them into meaningful configurations. Additional
+2D materials can be included as well by modifying the code.
+
+Out of the box you can build graphene on hBN, twisted bilayer graphene,
+twisted multilayer graphene, hBN-encapsulated single-layer graphene,
+encapsulated bilayer graphene, and more, with full control over the twist
+angle and the sliding between layers. Commensurate cells are built
+automatically to account for periodic boundary conditions.
+
+::::{container} hero-actions
+
+:::{button-ref} installation
+:ref-type: doc
+:color: primary
+
+Get started
+:::
+
+:::{button-ref} examples/index
+:ref-type: doc
+:color: primary
+:outline:
+
+Browse the examples
+:::
+
+:::{button-link} https://github.com/gjung-group/grabnes
+:color: secondary
+:outline:
+
+{octicon}`mark-github` Source code
+:::
+
+::::
+
+## Explore the documentation
+
+This documentation covers everything needed to run GRABNES, from installing
+the code to interpreting production results.
+
+:::::{grid} 1 2 2 4
+:gutter: 3
+:class-container: section-cards
+
+::::{grid-item-card} {octicon}`download;1.4em;sd-text-primary` Installation
+:link: installation
+:link-type: doc
+
+Compile the code, or run it in the browser via Colab.
+::::
+
+::::{grid-item-card} {octicon}`book;1.4em;sd-text-primary` Theory
+:link: theory/index
+:link-type: doc
+
+The physics: tight-binding models, moiré supercells and observables.
+::::
+
+::::{grid-item-card} {octicon}`beaker;1.4em;sd-text-primary` Examples
+:link: examples/index
+:link-type: doc
+
+The supported, reproducible example calculations.
+::::
+
+::::{grid-item-card} {octicon}`mortar-board;1.4em;sd-text-primary` Tutorials
+:link: tutorials/index
+:link-type: doc
+
+The workflows, step by step.
+::::
+
+::::{grid-item-card} {octicon}`gear;1.4em;sd-text-primary` User guide
+:link: user-guide/index
+:link-type: doc
+
+The input file and every input key.
+::::
+
+::::{grid-item-card} {octicon}`graph;1.4em;sd-text-primary` Benchmarks
+:link: benchmarks/index
+:link-type: doc
+
+Published results.
+::::
+
+::::{grid-item-card} {octicon}`tools;1.4em;sd-text-primary` Development guide
+:link: development/index
+:link-type: doc
+
+The state of the code.
+::::
+
+::::{grid-item-card} {octicon}`code;1.4em;sd-text-primary` API reference
+:link: reference/index
+:link-type: doc
+
+The Fortran units.
+::::
+
+:::::
+
 ## What you can compute
 
-::::{grid} 2
+::::{grid} 1 2 2 2
+:gutter: 3
 
-:::{grid-item-card} Structures
+:::{grid-item-card} {octicon}`stack;1.2em;sd-text-primary` Structures
 :link: theory/moire-cells
 :link-type: doc
 
@@ -50,7 +138,7 @@ sliding, for graphene, hBN and their combinations. LAMMPS interface for
 structural relaxation.
 :::
 
-:::{grid-item-card} Band structures & DOS
+:::{grid-item-card} {octicon}`pulse;1.2em;sd-text-primary` Band structures & DOS
 :link: theory/observables
 :link-type: doc
 
@@ -58,7 +146,7 @@ Electronic band structures and density of states, using Lanczos recursion as
 well as exact diagonalization — from a few atoms up to tens of millions.
 :::
 
-:::{grid-item-card} Spectral functions
+:::{grid-item-card} {octicon}`eye;1.2em;sd-text-primary` Spectral functions
 :link: theory/observables
 :link-type: doc
 
@@ -67,7 +155,7 @@ experiments, local density of states, and probability densities from the
 wavefunction distribution.
 :::
 
-:::{grid-item-card} Transport & magnetic field
+:::{grid-item-card} {octicon}`zap;1.2em;sd-text-primary` Transport & magnetic field
 :link: theory/observables
 :link-type: doc
 

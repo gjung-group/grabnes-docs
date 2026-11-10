@@ -122,7 +122,7 @@ tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Fo
 4. Keep pages buildable: `uv run sphinx-build -b html -W --keep-going . _build` (from the repo root) must succeed with zero warnings before committing.
 5. Do not commit `_build/`, `public/`, `__pycache__`, `.ipynb_checkpoints`, `.DS_Store` (see `.gitignore`).
 6. The old tree under `grabnes/` stays read-only until migration is verified; delete it (and `grabnes.tar.gz`) only in a final, separate commit.
-7. Python tooling: declare deps in `pyproject.toml` (`sphinx`, `furo`, `myst-parser`, `sphinx-design`, `ford`); `uv sync` builds `.venv` from `uv.lock`, and CI installs the same way.
+7. Python tooling: declare deps in `pyproject.toml` (`sphinx`, `furo`, `myst-parser`, `sphinx-design`, `sphinx-copybutton`, `ford`, `gitpython`); `uv sync` builds `.venv` from `uv.lock`, and CI installs the same way.
 8. `reference/units.md` and `reference/api/*.md` are generated (Ford over upstream `main`, run on a comment-normalized temp copy, plus the Doxygen `@brief`/`@param` blocks and the `!! - \`Key\`:` input-key items of the sources, quoted verbatim): after upstream changes run `uv run python tools/sync_from_code_repo.py` and commit the result; never hand-edit these files.
 9. Commits: small, imperative-mood messages ("Add theory/models page…").
 
