@@ -83,6 +83,7 @@ functionality-status
 release-readiness
 cluster-build-and-validation
 coding-conventions
+output-style
 input-key-renaming-proposal
 licensing-audit
 citation-checklist
@@ -101,6 +102,7 @@ known-issues/berry-curvature
 | {doc}`release-readiness` | Checklist for the first announced release: what is complete, what needs a maintainer decision, what is optional |
 | {doc}`cluster-build-and-validation` | Build on Linux, test results for both compilers, defects fixed, independent Hamiltonian validation, parameters, performance |
 | {doc}`coding-conventions` | Conventions of the solver sources (modules, routines, the `debug.log` trace, `Section.Name` input keys) and the rules added by the tests |
+| {doc}`output-style` | Rules for everything the solver writes to `job.out`: module prefixes, section headers, debug output |
 | {doc}`input-key-renaming-proposal` | Table of the present and former names of the input keys; source of the renaming of October 2026 |
 | {doc}`licensing-audit` | The license decision (GPL-3.0-or-later), the notices found, and the open points |
 | {doc}`citation-checklist` | What `CITATION.cff` contains and what is deliberately absent |

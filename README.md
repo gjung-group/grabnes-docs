@@ -44,7 +44,7 @@ Content comes from two sources: the old (2022) Sphinx docs and notebooks
 (kept locally under the gitignored `grabnes/` tree as read-only migration
 input, to be removed once the migration is verified), and `main` of the
 [GRABNES code repository](https://github.com/gjung-group/grabnes)
-(`docs/` and `examples/`; last synced at upstream commit `2b5f86b`).
+(`docs/` and `examples/`; last synced at upstream commit `c6f4e03`).
 
 Sections:
 
@@ -56,7 +56,7 @@ Sections:
 | `tutorials/` | graphene, bilayer/graphite, twisted bilayer, graphene on hBN, input flags, plotting |
 | `user-guide/` | input-file format, the complete input-key reference, TAPW + SOC input |
 | `benchmarks/` | benchmark studies; empty illustration stubs are marked "coming soon" |
-| `development/` | code structure, functionality status, validation, coding conventions, known issues, SOC/TAPW notes, release readiness, licensing |
+| `development/` | code structure, functionality status, validation, coding conventions, `job.out` output style, known issues, SOC/TAPW notes, release readiness, licensing |
 | `reference/` | API reference entry page + generated Fortran unit reference |
 | `assets/` | images, downloadable inputs/scripts/notebooks, logo, fonts, and CSS |
 | `tools/` | sync script for the code repository and the API-reference generator |
