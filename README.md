@@ -44,7 +44,7 @@ Content comes from two sources: the old (2022) Sphinx docs and notebooks
 (kept locally under the gitignored `grabnes/` tree as read-only migration
 input, to be removed once the migration is verified), and `main` of the
 [GRABNES code repository](https://github.com/gjung-group/grabnes)
-(`docs/` and `examples/`; last synced at upstream commit `c6f4e03`).
+(`docs/` and `examples/`; last synced at upstream commit `7b24d66`).
 
 Sections:
 
