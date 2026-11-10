@@ -121,6 +121,67 @@ def collect_docs(p) -> list[str]:
     return lines
 
 
+KEY_ITEM = re.compile(r"^-\s*`([^`]+)`:\s*(.*)$")
+
+
+def key_items(p) -> list[tuple[str, str]]:
+    """Return the input-key descriptions in a procedure's ``!!`` comments.
+
+    Upstream writes one Markdown item after every line that reads an input key::
+
+        call MIO_InputParameter('Kubo.Epsilon',eps,0.01_dp)
+          !! - `Kubo.Epsilon`: Recursion DOS: broadening eta ...
+          !!   continuation lines are indented
+
+    Ford collects these lines into the routine's ``doc_list``. Other ``!!``
+    lines (commented-out code, mostly) are ignored.
+    """
+    items: list[list[str]] = []
+    current: list[str] | None = None
+    for raw in getattr(p, "doc_list", None) or []:
+        m = KEY_ITEM.match(raw.strip())
+        if m:
+            current = [m.group(1), m.group(2).strip()]
+            items.append(current)
+        elif current is not None and raw.startswith("  ") and raw.strip():
+            current[1] = f"{current[1]} {raw.strip()}".strip()
+        else:
+            current = None
+    return [(k, d) for k, d in items]
+
+
+def md_text(text: str) -> str:
+    """Escape the characters MyST would read as markup in plain description text
+    (``*``/``_`` emphasis, ``$`` math, ``[``/``]`` links, ``<`` HTML), outside
+    inline code spans."""
+    parts = re.split(r"(`[^`]*`)", text)
+    return "".join(
+        part if part.startswith("`") else re.sub(r"([*_$\\[\]<])", r"\\\1", part)
+        for part in parts
+    )
+
+
+def collect_key_docs(unit) -> list[tuple[str, str, list[tuple[str, str]]]]:
+    """(routine, context, items) for every procedure of ``unit`` that reads keys,
+    including private and internal procedures, in source order."""
+    found = []
+
+    def walk(entity, parents):
+        procs = list(getattr(entity, "subroutines", None) or []) + list(getattr(entity, "functions", None) or [])
+        for p in sorted(procs, key=lambda x: getattr(x, "line_number", 0) or 0):
+            items = key_items(p)
+            if items:
+                if parents:
+                    ctx = "internal procedure of " + " → ".join(f"`{n}`" for n in parents)
+                else:
+                    ctx = getattr(p, "permission", "") or ""
+                found.append((p.name, ctx, items))
+            walk(p, parents + [p.name])
+
+    walk(unit, [])
+    return found
+
+
 # ---------------------------------------------------------------------------
 # Rendering
 
@@ -135,7 +196,10 @@ def render(units, programs, src, commit, ford_version):
         f"{ford_version}) from the sources at commit `{commit}` on {today}.\n"
         "Do not edit by hand — regenerate after code changes. Public "
         "procedures and module variables are listed; argument meanings are "
-        "documented in the source comments.\n```\n",
+        "documented in the source comments. The *Input keys* sections list "
+        "the `!!` description that follows every line reading an input key, "
+        "for every routine (public, private or internal); the same texts "
+        "form the Description column of {doc}`../user-guide/input-keys`.\n```\n",
     ]
     out.append("| Unit | Kind | Source |\n|---|---|---|")
     for kind, u in programs + units:
@@ -192,6 +256,15 @@ def render(units, programs, src, commit, ford_version):
             for v in sorted(varnames, key=lambda x: x.name.lower()):
                 out.append(f"- {var_str(v)}")
             out.append("")
+        key_docs = collect_key_docs(u)
+        if key_docs:
+            nkeys = sum(len(items) for _, _, items in key_docs)
+            out.append(f"### Input keys\n\n{nkeys} key reads, grouped by the routine that reads them.\n")
+            for name, ctx, items in key_docs:
+                out.append(f"**`{name}`**" + (f" ({ctx})" if ctx else "") + "\n")
+                for key, desc in items:
+                    out.append(f"- `{key}`: {md_text(desc)}")
+                out.append("")
     return "\n".join(out)
 
 

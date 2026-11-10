@@ -12,8 +12,9 @@ program is organized as one main program and the modules listed below, in the
 `lanczosKuboCode/Src/` folder of the
 [code repository](https://github.com/gjung-group/grabnes). The complete
 reference — every public procedure with its arguments, generic interfaces,
-and public module variables — is generated directly from the sources and
-collected on the {doc}`units` page.
+public module variables, and the input keys each routine reads with their
+descriptions — is generated directly from the sources and collected on the
+{doc}`units` page.
 
 For what each module does, see {doc}`../development/index`; for the complete
 list of input keys with their types and defaults, see
