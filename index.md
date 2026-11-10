@@ -1,4 +1,4 @@
-# GRABNES
+# Welcome to GRABNES's documentation!
 
 ```{toctree}
 :hidden:
