@@ -76,6 +76,13 @@ uv run python tools/gen_api_reference.py               # regenerate reference/un
 Hand-written pages derived from upstream are tracked in
 `tools/sync-state.json`; the script prints `MANUAL` when their source changed.
 
+The sync also runs automatically: `.github/workflows/sync-upstream.yml` checks
+every hour (or on demand from the Actions tab) for the newest commit on the
+code repository's `main` whose `regression` workflow passed. A clean sync that
+builds with `-W` is committed to `main` and deployed; a sync with `MANUAL`
+items or a failing build is opened as a pull request from `sync/upstream`
+instead, and no further syncs run until it is merged or closed.
+
 ## Building locally
 
 ```bash
