@@ -40,7 +40,9 @@ myst_enable_extensions = [
 # The tutorial pages are notebooks shown as saved: they need Google Colab,
 # Google Drive and the compiled code, so they are never executed here.
 nb_execution_mode = "off"
-nb_merge_streams = True
+# Keep the outputs exactly as saved and in their order (merging would reorder
+# stderr and trim text); consecutive streams are joined visually in the CSS.
+nb_merge_streams = False
 
 templates_path = ["_templates"]
 
@@ -176,6 +178,40 @@ import notebook_pages as _nbp  # noqa: E402
 _NB_RANGES = _nbp.cell_ranges()
 
 
+def _prompt(text, kind):
+    return nodes.raw("", f'<div class="jp-prompt jp-{kind}prompt">{text}</div>', format="html")
+
+
+def _jupyter_prompts(doctree, nb):
+    """Add JupyterLab's prompt column: `[n]:` beside every code cell (blue)
+    and beside every execute_result (red), with the execution counts saved in
+    the notebook (`[ ]:` where none is saved, as Jupyter shows it)."""
+    for cell in doctree.findall(nodes.container):
+        if cell.get("nb_element") != "cell_code":
+            continue
+        source = nb["cells"][cell["cell_index"]]
+        count = source.get("execution_count")
+        for part in list(cell.children):
+            if part.get("nb_element") == "cell_code_source":
+                part.insert(0, _prompt(f"[{count if count is not None else '&nbsp;'}]:", "in"))
+            elif part.get("nb_element") == "cell_code_output":
+                outputs = source.get("outputs", [])
+                if len(outputs) != len(part.children):
+                    outputs = [{}] * len(part.children)
+                rows = []
+                for out, node in zip(outputs, part.children):
+                    row = nodes.container(classes=["jp-output-row"])
+                    if out.get("output_type") == "execute_result":
+                        n = out.get("execution_count")
+                        row += _prompt(f"[{n if n is not None else '&nbsp;'}]:", "out")
+                    else:
+                        row += _prompt("", "out")
+                    row += node.deepcopy()
+                    rows.append(row)
+                part.children = []
+                part.extend(rows)
+
+
 def _notebook_page(app, doctree):
     docname = app.env.docname
     page_name = docname.removeprefix("tutorials/")
@@ -195,6 +231,8 @@ def _notebook_page(app, doctree):
         "Download .ipynb</a>"
         "</div>"
     ), format="html")
+
+    _jupyter_prompts(doctree, _nbp.load(_nbp.OUT_DIR / f"{page_name}.ipynb"))
 
     # Notebook metadata (docinfo) must stay a direct child of the document.
     meta = [n for n in doctree.children if isinstance(n, nodes.docinfo)]
