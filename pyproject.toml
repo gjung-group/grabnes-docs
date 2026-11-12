@@ -11,6 +11,7 @@ dependencies = [
     "ford>=7.0.13",
     "gitpython>=3.1",
     "sphinx-copybutton>=0.5.2",
+    "myst-nb>=1.4.0",
 ]
 
 [tool.uv]

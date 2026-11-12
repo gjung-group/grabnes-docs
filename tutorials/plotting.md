@@ -1,5 +1,10 @@
 # Post-processing and plotting
 
+```{container} notebook-source
+{octicon}`book` Written from the {doc}`plotting results notebook <notebooks/results>`.
+[Open in Colab](https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/tutorials/notebooks/results.ipynb)
+```
+
 GRABNES writes plain-text output files that can be read directly with NumPy.
 The [`PyToGrabnes.py`](../assets/downloads/PyToGrabnes.py) driver library
 provides ready-made helpers (`plotDOS`, `transformBands`,
@@ -116,5 +121,5 @@ produce constant-energy contours comparable with ARPES.
 The notebooks ship a `latexify()` helper that configures matplotlib for
 two-column journal figures (serif fonts, 8 pt, LaTeX rendering, golden-ratio
 figure heights); see the
-[original notebooks](../assets/downloads/Twistronics2023.ipynb) for the
+{doc}`plotting results notebook <notebooks/results>` for the
 full snippet.

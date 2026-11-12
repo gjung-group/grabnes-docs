@@ -1,5 +1,10 @@
 # Input flag reference
 
+```{container} notebook-source
+{octicon}`book` Written from the {doc}`input files notebook <notebooks/grabnes2>`.
+[Open in Colab](https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/tutorials/notebooks/grabnes2.ipynb)
+```
+
 GRABNES reads a single input file (`Gendata.in` by convention). Flags are
 order-independent, and negative values must be written as `0.0-1.0` instead
 of `-1.0`. This page lists the flags encountered in the tutorials; to

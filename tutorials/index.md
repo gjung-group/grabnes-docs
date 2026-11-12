@@ -15,6 +15,7 @@ tbg
 graphene-on-hbn
 input-reference
 plotting
+notebooks/index
 ```
 
 ```{tip}
@@ -22,9 +23,6 @@ These pages originate from the Twistronics 2023 workshop tutorial sessions
 and from an informal moiré course among group members. The original,
 runnable Google Colab notebook is available
 [here](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing),
-and the original notebooks
-([Twistronics2023.ipynb](../assets/downloads/Twistronics2023.ipynb),
-[grabnes2.ipynb](../assets/downloads/grabnes2.ipynb),
-[grabnes3.ipynb](../assets/downloads/grabnes3.ipynb),
-[results.ipynb](../assets/downloads/results.ipynb)) are available for download.
+and the original notebooks can be read with all their outputs, opened in
+Colab or downloaded from {doc}`notebooks/index`.
 ```

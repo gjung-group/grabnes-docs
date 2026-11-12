@@ -1,8 +1,8 @@
 # Bernal bilayer graphene & graphite
 
-```{seealso}
-Runnable version in the
-[Google Colab notebook](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing).
+```{container} notebook-source
+{octicon}`book` Written from the *Bernal stacked bilayer graphene* section of the {doc}`Twistronics 2023 workshop notebook <notebooks/Twistronics2023>`.
+[Open in Colab](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing)
 ```
 
 We revisit the skills learnt in the {doc}`graphene` tutorial by calculating

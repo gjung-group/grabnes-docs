@@ -45,8 +45,8 @@ related heterostructures.
 ## Current state
 
 The site is a Sphinx documentation tree whose **source directory is the
-repository root**, built with MyST-Markdown, the Furo theme, sphinx-design and
-sphinx-copybutton, and deployed to GitHub Pages by a GitHub Actions workflow.
+repository root**, built with MyST-Markdown, myst-nb (notebooks), the Furo theme, sphinx-design
+and sphinx-copybutton, and deployed to GitHub Pages by a GitHub Actions workflow.
 The look is customized in `assets/static/grabnes.css` (Inter font, brand
 colours from the logo, landing-page hero, cards and tables, light and dark
 mode), `assets/static/grabnes.js` (line breaks for long identifiers in tables)
@@ -65,12 +65,12 @@ Sections:
 | `index.md`, `installation.md` | landing page, compile & Colab instructions |
 | `theory/` | tight-binding models, moiré supercells, observables, TAPW procedure |
 | `examples/` | the supported examples of the code repository (01–11: getting started, moiré, ARPES) with figures and downloadable inputs |
-| `tutorials/` | graphene, bilayer/graphite, twisted bilayer, graphene on hBN, input flags, plotting |
+| `tutorials/` | graphene, bilayer/graphite, twisted bilayer, graphene on hBN, input flags, plotting; `notebooks/` holds the original Jupyter notebooks, rendered with their saved outputs (not executed), with Open-in-Colab and download links |
 | `user-guide/` | input-file format, YAML/JSON input converter, input-key reference (generated upstream, with descriptions), stacking displacements, TAPW + SOC input |
 | `benchmarks/` | benchmark studies; empty illustration stubs are marked "coming soon" |
 | `development/` | code structure, functionality status, validation, coding conventions, `job.out` output style, known issues, SOC/TAPW notes, release readiness, licensing |
 | `reference/` | API reference entry page + generated Fortran unit reference (overview `units.md`, one page per unit in `api/`) |
-| `assets/` | images, downloadable inputs/scripts/notebooks, logo, fonts, CSS and JS |
+| `assets/` | images, downloadable inputs and scripts, logo, fonts, CSS and JS |
 | `_templates/` | Furo sidebar templates (brand, repository links) |
 | `tools/` | sync script for the code repository (`sync_from_code_repo.py`, state in `sync-state.json`) and the API-reference generator (`gen_api_reference.py`) |
 | `.github/workflows/` | `docs.yml` (build and deploy) |

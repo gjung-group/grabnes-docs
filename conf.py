@@ -15,7 +15,9 @@ release = "0.1"
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    "myst_parser",
+    # myst_nb includes myst_parser and also renders the original Jupyter
+    # notebooks under tutorials/notebooks/ (stored outputs, never executed).
+    "myst_nb",
     "sphinx_design",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
@@ -34,6 +36,14 @@ myst_enable_extensions = [
     "fieldlist",
 ]
 
+# Notebooks are shown as saved: they need Google Colab, Google Drive and the
+# compiled code, so they are never executed during the build.
+nb_execution_mode = "off"
+# Plots are stored as PNG and the notebooks' HTML outputs as text: prefer the
+# image, then plain text.
+nb_mime_priority_overrides = [("html", "text/html", None)]
+nb_merge_streams = True
+
 templates_path = ["_templates"]
 
 # The repository root is the Sphinx source directory, so everything that is
@@ -42,6 +52,8 @@ templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
     "public",
+    # myst-nb writes notebook images next to the build folder, i.e. here
+    "jupyter_execute",
     ".venv/*",
     "grabnes/*",
     "README.md",
@@ -50,6 +62,7 @@ exclude_patterns = [
     "assets/downloads/**",
     "Thumbs.db",
     ".DS_Store",
+    "**/.ipynb_checkpoints",
 ]
 
 # -- Options for HTML output -------------------------------------------------
@@ -146,6 +159,76 @@ class Todo(_TitledAdmonition):
     name = "todo"
 
 
+# -- Original notebooks (tutorials/notebooks/) --------------------------------
+# The notebooks are rendered verbatim. Several of them have more than one
+# top-level heading, so the page title comes from this table instead: the
+# notebook's own sections are nested below it. Every notebook page also gets a
+# toolbar with "Open in Colab" and "Download" links.
+
+NOTEBOOKS = {
+    "Twistronics2023": "Twistronics 2023 workshop notebook",
+    "grabnes2": "Input files notebook",
+    "grabnes3": "Twisted bilayer graphene input notebook",
+    "results": "Plotting results notebook",
+}
+_NB_DIR = "tutorials/notebooks/"
+_COLAB = (
+    "https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/"
+)
+
+
+def _notebook_page(app, doctree):
+    docname = app.env.docname
+    if not docname.startswith(_NB_DIR) or docname[len(_NB_DIR):] not in NOTEBOOKS:
+        return
+    stem = docname[len(_NB_DIR):]
+    title = NOTEBOOKS[stem]
+    page = nodes.section(ids=[nodes.make_id(f"notebook-{stem}")])
+    page += nodes.title(title, title)
+    toolbar = (
+        '<div class="notebook-toolbar">'
+        f'<span class="notebook-file">{stem}.ipynb</span>'
+        f'<a class="notebook-action" href="{_COLAB}{docname}.ipynb" rel="noopener">'
+        "Open in Colab</a>"
+        f'<a class="notebook-action" href="../../_downloads/notebooks/{stem}.ipynb" download>'
+        "Download .ipynb</a>"
+        "</div>"
+    )
+    page += nodes.raw("", toolbar, format="html")
+    # Notebook metadata (docinfo) must stay a direct child of the document.
+    meta = [n for n in doctree.children if isinstance(n, nodes.docinfo)]
+    page.extend(n for n in doctree.children if not isinstance(n, nodes.docinfo))
+    doctree.children = []
+    doctree.extend(meta)
+    doctree += page
+
+
+def _notebook_links(app, docname, source):
+    # The notebooks link to the driver library as a file next to them; on the
+    # website it lives in assets/downloads/. Only the rendered page changes.
+    if docname.startswith(_NB_DIR):
+        source[0] = source[0].replace(
+            "](./PyToGrabnes.py)", "](../../assets/downloads/PyToGrabnes.py)"
+        )
+
+
+def _copy_notebooks(app, exception):
+    # Serve the unchanged .ipynb files at a stable URL for the download links.
+    if exception or app.builder.format != "html":
+        return
+    import shutil
+    from pathlib import Path
+
+    out = Path(app.outdir, "_downloads", "notebooks")
+    out.mkdir(parents=True, exist_ok=True)
+    for stem in NOTEBOOKS:
+        shutil.copy2(Path(app.srcdir, _NB_DIR, f"{stem}.ipynb"), out)
+
+
 def setup(app):
     app.add_directive("task", Task)
     app.add_directive("todo", Todo)
+    # Before the title collector (priority 500) so the new title is used.
+    app.connect("doctree-read", _notebook_page, priority=400)
+    app.connect("source-read", _notebook_links)
+    app.connect("build-finished", _copy_notebooks)

@@ -1,8 +1,8 @@
 # Twisted bilayer graphene
 
-```{seealso}
-Runnable version in the
-[Google Colab notebook](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing).
+```{container} notebook-source
+{octicon}`book` Written from the *Twisted Bilayer Graphene* section of the {doc}`Twistronics 2023 workshop notebook <notebooks/Twistronics2023>`.
+[Open in Colab](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing)
 ```
 
 Twisted bilayer graphene has garnered a lot of attention in recent years due

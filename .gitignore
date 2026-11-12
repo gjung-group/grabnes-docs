@@ -18,3 +18,4 @@ Thumbs.db
 # only, removed in the final migration commit
 grabnes/
 grabnes.tar.gz
+jupyter_execute/
