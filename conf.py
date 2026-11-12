@@ -31,17 +31,15 @@ copybutton_exclude = ".linenos, .gp, .go"
 
 myst_enable_extensions = [
     "colon_fence",
+    "tasklist",  # "- [ ]" task lists of the notebooks, as Jupyter shows them
     "dollarmath",
     "amsmath",
     "fieldlist",
 ]
 
-# Notebooks are shown as saved: they need Google Colab, Google Drive and the
-# compiled code, so they are never executed during the build.
+# The tutorial pages are notebooks shown as saved: they need Google Colab,
+# Google Drive and the compiled code, so they are never executed here.
 nb_execution_mode = "off"
-# Plots are stored as PNG and the notebooks' HTML outputs as text: prefer the
-# image, then plain text.
-nb_mime_priority_overrides = [("html", "text/html", None)]
 nb_merge_streams = True
 
 templates_path = ["_templates"]
@@ -63,6 +61,9 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "**/.ipynb_checkpoints",
+    # the original notebooks are downloads; their cells are rendered on the
+    # tutorial pages (tools/notebook_pages.py)
+    "tutorials/notebooks/*.ipynb",
 ]
 
 # -- Options for HTML output -------------------------------------------------
@@ -159,70 +160,113 @@ class Todo(_TitledAdmonition):
     name = "todo"
 
 
-# -- Original notebooks (tutorials/notebooks/) --------------------------------
-# The notebooks are rendered verbatim. Several of them have more than one
-# top-level heading, so the page title comes from this table instead: the
-# notebook's own sections are nested below it. Every notebook page also gets a
-# toolbar with "Open in Colab" and "Download" links.
+# -- Tutorial pages cut from the original notebooks ----------------------------
+# tutorials/<page>.ipynb are verbatim runs of cells of the original notebooks
+# in tutorials/notebooks/ (written and checked by tools/notebook_pages.py).
+# They are rendered with their saved outputs. Each page gets its title (see
+# PAGES) and a toolbar naming the original notebook and its cells, with
+# "Open in Colab" and "Download" links to the original.
 
-NOTEBOOKS = {
-    "Twistronics2023": "Twistronics 2023 workshop notebook",
-    "grabnes2": "Input files notebook",
-    "grabnes3": "Twisted bilayer graphene input notebook",
-    "results": "Plotting results notebook",
-}
-_NB_DIR = "tutorials/notebooks/"
-_COLAB = (
-    "https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/"
-)
+import sys as _sys
+from pathlib import Path as _Path
+
+_sys.path.insert(0, str(_Path(__file__).parent / "tools"))
+import notebook_pages as _nbp  # noqa: E402
+
+_NB_RANGES = _nbp.cell_ranges()
 
 
 def _notebook_page(app, doctree):
     docname = app.env.docname
-    if not docname.startswith(_NB_DIR) or docname[len(_NB_DIR):] not in NOTEBOOKS:
+    page_name = docname.removeprefix("tutorials/")
+    if not docname.startswith("tutorials/") or page_name not in _nbp.PAGES:
         return
-    stem = docname[len(_NB_DIR):]
-    title = NOTEBOOKS[stem]
-    page = nodes.section(ids=[nodes.make_id(f"notebook-{stem}")])
-    page += nodes.title(title, title)
-    toolbar = (
+    spec = _nbp.PAGES[page_name]
+    stem = spec["source"]
+    first, end = _NB_RANGES[page_name]
+    total = len(_nbp.load(_nbp.NB_DIR / f"{stem}.ipynb")["cells"])
+    cells = "all cells" if (first, end) == (0, total) else f"cells {first + 1}&ndash;{end}"
+    toolbar = nodes.raw("", (
         '<div class="notebook-toolbar">'
-        f'<span class="notebook-file">{stem}.ipynb</span>'
-        f'<a class="notebook-action" href="{_COLAB}{docname}.ipynb" rel="noopener">'
+        f'<span class="notebook-file">{stem}.ipynb &middot; {cells}</span>'
+        f'<a class="notebook-action" href="{_nbp.colab_url(stem)}" rel="noopener">'
         "Open in Colab</a>"
-        f'<a class="notebook-action" href="../../_downloads/notebooks/{stem}.ipynb" download>'
+        f'<a class="notebook-action" href="../_downloads/notebooks/{stem}.ipynb" download>'
         "Download .ipynb</a>"
         "</div>"
-    )
-    page += nodes.raw("", toolbar, format="html")
+    ), format="html")
+
     # Notebook metadata (docinfo) must stay a direct child of the document.
     meta = [n for n in doctree.children if isinstance(n, nodes.docinfo)]
-    page.extend(n for n in doctree.children if not isinstance(n, nodes.docinfo))
+    body = [n for n in doctree.children if not isinstance(n, nodes.docinfo)]
+    if spec["title"]:
+        page = nodes.section(ids=[nodes.make_id(f"tutorial-{page_name}")])
+        page += nodes.title(spec["title"], spec["title"])
+        page += toolbar
+        page.extend(body)
+    else:
+        page, rest = body[0], body[1:]
+        if spec["nest"]:
+            page.extend(rest)  # later top-level headings become subsections
+        elif rest:
+            raise ValueError(f"{docname}: several top-level headings, set a title")
+        page.insert(1, toolbar)
     doctree.children = []
     doctree.extend(meta)
     doctree += page
 
 
-def _notebook_links(app, docname, source):
-    # The notebooks link to the driver library as a file next to them; on the
-    # website it lives in assets/downloads/. Only the rendered page changes.
-    if docname.startswith(_NB_DIR):
-        source[0] = source[0].replace(
-            "](./PyToGrabnes.py)", "](../../assets/downloads/PyToGrabnes.py)"
-        )
+def _display_math_blocks(text):
+    """Separate `$$` display-math blocks from the surrounding text.
+
+    Jupyter shows a `$$ ... $$` block that sits inside a paragraph as display
+    math; MyST only does when the block is a paragraph of its own. Blank lines
+    are added before an opening and after a closing `$$` line; the text itself
+    is unchanged.
+    """
+    out, in_math = [], False
+    lines = text.split("\n")
+    for k, line in enumerate(lines):
+        if line.strip() == "$$":
+            if not in_math and out and out[-1].strip():
+                out.append("")
+            out.append(line)
+            if in_math and k + 1 < len(lines) and lines[k + 1].strip():
+                out.append("")
+            in_math = not in_math
+        else:
+            out.append(line)
+    return "\n".join(out)
+
+
+def _notebook_source(app, docname, source):
+    # Rendering only; the notebook files are not changed.
+    if docname.removeprefix("tutorials/") not in _nbp.PAGES:
+        return
+    import json
+
+    nb = json.loads(source[0])
+    for cell in nb["cells"]:
+        if cell["cell_type"] != "markdown":
+            continue
+        text = "".join(cell["source"])
+        # The notebook links to the driver library as a file next to it; on
+        # the website it lives in assets/downloads/.
+        text = text.replace("](./PyToGrabnes.py)", "](../assets/downloads/PyToGrabnes.py)")
+        cell["source"] = _display_math_blocks(text)
+    source[0] = json.dumps(nb)
 
 
 def _copy_notebooks(app, exception):
-    # Serve the unchanged .ipynb files at a stable URL for the download links.
+    # Serve the unchanged original .ipynb files for the download links.
     if exception or app.builder.format != "html":
         return
     import shutil
-    from pathlib import Path
 
-    out = Path(app.outdir, "_downloads", "notebooks")
+    out = _Path(app.outdir, "_downloads", "notebooks")
     out.mkdir(parents=True, exist_ok=True)
-    for stem in NOTEBOOKS:
-        shutil.copy2(Path(app.srcdir, _NB_DIR, f"{stem}.ipynb"), out)
+    for nb in sorted(_nbp.NB_DIR.glob("*.ipynb")):
+        shutil.copy2(nb, out)
 
 
 def setup(app):
@@ -230,5 +274,5 @@ def setup(app):
     app.add_directive("todo", Todo)
     # Before the title collector (priority 500) so the new title is used.
     app.connect("doctree-read", _notebook_page, priority=400)
-    app.connect("source-read", _notebook_links)
+    app.connect("source-read", _notebook_source)
     app.connect("build-finished", _copy_notebooks)

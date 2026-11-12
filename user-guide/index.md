@@ -18,8 +18,8 @@ tapw-soc-input
 ```
 
 ```{seealso}
-{doc}`../tutorials/input-reference` maps the input flags used in the
-tutorials (written with the pre-October-2026 key names, which still work);
+{doc}`../tutorials/input-files` shows how the tutorials write their input
+files (with the pre-October-2026 key names, which still work);
 {doc}`../examples/index` gives complete runnable inputs for every supported
 calculation.
 ```

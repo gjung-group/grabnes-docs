@@ -59,7 +59,7 @@ Known external links: Colab notebook `https://colab.research.google.com/drive/12
 ## 4. Target website (agreed design decisions)
 
 - **Stack: modernized Sphinx** — MyST-Markdown sources (`myst-parser`, loaded through `myst-nb`), `myst-nb` with execution off (it only renders the original notebooks in `tutorials/notebooks/` with their saved outputs), `sphinx-design`, `sphinxcontrib-bibtex` if references grow, **Furo** theme (as set in `conf.py`/`pyproject.toml`), MathJax for equations. Build via `sphinx-build`; deploy with GitHub Actions to GitHub Pages. `conf.py` also defines custom `{task}` and `{todo}` admonition directives (styled in `assets/static/grabnes.css`).
-- **Notebooks → Markdown pages**: convert markdown cells to MyST prose, keep representative code snippets (fenced, trimmed of Colab plumbing), reference static images from `figures/` instead of embedded base64 outputs. The original `.ipynb` files live unchanged in `tutorials/notebooks/` and are rendered there as read-only pages (title and Open-in-Colab/Download toolbar added by `conf.py`; never edit the notebooks); each tutorial page starts with a `notebook-source` bar linking its notebook.
+- **Notebooks → tutorial pages**: the notebooks are shown verbatim (not converted to prose), outputs included. The original `.ipynb` files live unchanged in `tutorials/notebooks/` (downloads, not rendered). Every tutorial page `tutorials/<page>.ipynb` is a contiguous run of cells of one original notebook, copied byte for byte by `tools/notebook_pages.py` (split defined in its `PAGES`; `--check` runs in CI) and rendered by myst-nb with the saved outputs. Never hand-edit or paraphrase these pages. `conf.py` adds only the page title, the source/Colab/Download toolbar, a blank line around `$$` display blocks and the `PyToGrabnes.py` link target, at render time.
 - **Layout**: the **repository root is the Sphinx source directory** — no `docs/` folder, no symlinks; every section is a real top-level folder:
 
 ```
@@ -75,9 +75,10 @@ assets/                    # ALL binary/support files (single source of truth)
 theory/                    # models.md, moire-cells.md, observables.md, tapw-procedure.md
 examples/                  # index + getting-started (01–04), moire (05–09), arpes (10–11, spectral functions)
 user-guide/                # input-file, input-keys (generated table), tapw-soc-input
-tutorials/                 # graphene, bilayer-graphite, tbg, graphene-on-hbn,
-                           # input-reference, plotting (+ index),
-                           # notebooks/ (original .ipynb, rendered by myst-nb)
+tutorials/                 # introduction, graphene, bilayer-graphite, tbg,
+                           # graphene-on-hbn, input-files, tbg-input, plotting
+                           # (.ipynb cut from notebooks/ by tools/notebook_pages.py)
+                           # + index; notebooks/ = the original .ipynb (downloads)
 benchmarks/                # benchmarks section sources
 development/               # code-structure guide + documents copied from the code
                            # repo (functionality-status, validation, conventions…)
@@ -102,12 +103,14 @@ tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Fo
 | `index.rst` "Illustrations" (tBG, t20G, ARPES) | `benchmarks/index.md` (+ pages) | empty stubs (gap estimation, supermoire, impurities) → marked *coming soon*, do not invent content |
 | `tbModels.rst` + `GBNtwoLayers*.png` | `theory/models.md` | slides are image-only; write prose around them from notebook theory |
 | `grabnes.rst` (f:automodule stubs) | `reference/index.md` | module list + `codeStructure.png` + link to code repo; sphinxfortran is dead, drop it |
-| `Twistronics2023.ipynb` §Graphene | `tutorials/graphene.md` | |
-| `Twistronics2023.ipynb` §Bernal/graphite | `tutorials/bilayer-graphite.md` | |
-| `Twistronics2023.ipynb` §tBG | `tutorials/tbg.md` | merge `grabnes3.ipynb` (ReadXYZ workflow) here |
-| `Twistronics2023.ipynb` §Graphene on hBN + magnetic DOS | `tutorials/graphene-on-hbn.md`, `magnetic-field.md` | |
-| `grabnes2.ipynb` | `tutorials/input-reference.md` + graphene tutorial | input-flag documentation |
-| `results.ipynb` | `tutorials/plotting.md` | Python post-processing recipes |
+| `Twistronics2023.ipynb` §Introduction + prerequisites | `tutorials/introduction.ipynb` | verbatim cells (`tools/notebook_pages.py`) |
+| `Twistronics2023.ipynb` §Graphene | `tutorials/graphene.ipynb` | verbatim cells |
+| `Twistronics2023.ipynb` §Bernal/graphite | `tutorials/bilayer-graphite.ipynb` | verbatim cells |
+| `Twistronics2023.ipynb` §tBG | `tutorials/tbg.ipynb` | verbatim cells |
+| `Twistronics2023.ipynb` §Graphene on hBN + magnetic DOS + Future work | `tutorials/graphene-on-hbn.ipynb` | verbatim cells |
+| `grabnes2.ipynb` | `tutorials/input-files.ipynb` | whole notebook, verbatim |
+| `grabnes3.ipynb` | `tutorials/tbg-input.ipynb` | whole notebook, verbatim |
+| `results.ipynb` | `tutorials/plotting.ipynb` | whole notebook, verbatim |
 | `figures/*.png` | `assets/images/` | rename to kebab-case when unambiguous |
 | `notebooks/*.{in,mol,dat,f90,py}` | `assets/downloads/` | sample inputs/scripts |
 | code repo `examples/*/README.md` + figures | `examples/{getting-started,moire,arpes}.md` + `assets/{images,downloads}/examples/` | mirrored October 2026; reference `.dat` data stays in the code repo |

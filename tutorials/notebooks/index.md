@@ -1,10 +1,7 @@
 # Original notebooks
 
-The tutorials in this section were written from these Jupyter notebooks. They
-are shown here unchanged, with the outputs and figures saved in them, so you
-can read them without running anything.
-
-To run a notebook, open it in Google Colab, or download it and run it on a
+The tutorials are the cells of these Jupyter notebooks, shown unchanged. To
+run a notebook, open it in Google Colab, or download it and run it on a
 machine where GRABNES is compiled. The notebooks were written for Colab: their
 first cells mount Google Drive and set up the Intel compilers, and they use
 the Python driver
@@ -15,54 +12,40 @@ the Python driver
 :class-container: notebook-cards
 
 :::{grid-item-card} {octicon}`mortar-board` Twistronics 2023 workshop
-:link: Twistronics2023
-:link-type: doc
-
-The full workshop tutorial: graphene, Bernal bilayer and graphite, twisted
-bilayer graphene, and graphene on hBN with the magnetic-field DOS.
+The full workshop tutorial, shown on the pages {doc}`../introduction`,
+{doc}`../graphene`, {doc}`../bilayer-graphite`, {doc}`../tbg` and
+{doc}`../graphene-on-hbn`.
 +++
-`Twistronics2023.ipynb` · 17 figures
+`Twistronics2023.ipynb` ·
+[Open in Colab](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing) ·
+<a href="../../_downloads/notebooks/Twistronics2023.ipynb" download>Download</a>
 :::
 
 :::{grid-item-card} {octicon}`file-code` Input files
-:link: grabnes2
-:link-type: doc
-
-Writing input files with the built-in structure methods and with `ReadXYZ`
-for graphene, graphene on hBN and twisted bilayer graphene.
+Writing input files with the built-in structure methods and with `ReadXYZ`,
+shown on the page {doc}`../input-files`.
 +++
-`grabnes2.ipynb`
+`grabnes2.ipynb` ·
+[Open in Colab](https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/tutorials/notebooks/grabnes2.ipynb) ·
+<a href="../../_downloads/notebooks/grabnes2.ipynb" download>Download</a>
 :::
 
-:::{grid-item-card} {octicon}`stack` Twisted bilayer graphene input
-:link: grabnes3
-:link-type: doc
-
+:::{grid-item-card} {octicon}`stack` Twisted bilayer graphene input files
 Twisted bilayer graphene from the built-in methods and from an external
-structure file, and twisted bilayer graphene on hBN.
+structure file, shown on the page {doc}`../tbg-input`.
 +++
-`grabnes3.ipynb`
+`grabnes3.ipynb` ·
+[Open in Colab](https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/tutorials/notebooks/grabnes3.ipynb) ·
+<a href="../../_downloads/notebooks/grabnes3.ipynb" download>Download</a>
 :::
 
 :::{grid-item-card} {octicon}`graph` Plotting results
-:link: results
-:link-type: doc
-
-Python recipes for plotting band structures and densities of states.
+Python recipes for plotting band structures and densities of states, shown on
+the page {doc}`../plotting`.
 +++
-`results.ipynb` · 6 figures
+`results.ipynb` ·
+[Open in Colab](https://colab.research.google.com/github/gjung-group/grabnes-docs/blob/main/tutorials/notebooks/results.ipynb) ·
+<a href="../../_downloads/notebooks/results.ipynb" download>Download</a>
 :::
 
 ::::
-
-The Twistronics 2023 notebook is also shared as a ready-to-run
-[Google Colab notebook](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing).
-
-```{toctree}
-:hidden:
-
-Twistronics2023
-grabnes2
-grabnes3
-results
-```

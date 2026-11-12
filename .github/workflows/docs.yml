@@ -24,6 +24,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync
+      # the tutorial pages must hold the original notebook cells unchanged
+      - run: uv run python tools/notebook_pages.py --check
       - run: uv run sphinx-build -b html -W --keep-going . public
       - uses: actions/upload-pages-artifact@v3
         with:

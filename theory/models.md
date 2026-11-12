@@ -4,7 +4,7 @@ GRABNES is a real-space tight-binding code. The models implemented in the
 package combine an accurate intralayer parametrization with a
 distance-dependent interlayer parametrization matched to DFT. This page
 summarizes the models; the corresponding input flags are documented in the
-{doc}`../tutorials/input-reference`.
+{doc}`../user-guide/input-keys`.
 
 ## F2G2: intralayer model from maximally localized Wannier functions
 

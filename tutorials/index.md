@@ -6,23 +6,40 @@ input files and runs the Fortran executable in the background. The same
 input files can of course be written by hand and run from the terminal —
 the Python layer is only a convenience.
 
+Every page shows the cells of one of the original Jupyter notebooks exactly as
+they are, with the outputs and figures saved in them. The bar under each page
+title names the notebook and the cells the page shows, and links to the
+notebook in Google Colab and to its download.
+
 ```{toctree}
 :maxdepth: 1
+:caption: Twistronics 2023 workshop
 
+introduction
 graphene
 bilayer-graphite
 tbg
 graphene-on-hbn
-input-reference
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: Moiré course notebooks
+
+input-files
+tbg-input
 plotting
+```
+
+```{toctree}
+:maxdepth: 1
+
 notebooks/index
 ```
 
 ```{tip}
 These pages originate from the Twistronics 2023 workshop tutorial sessions
-and from an informal moiré course among group members. The original,
-runnable Google Colab notebook is available
-[here](https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-?usp=sharing),
-and the original notebooks can be read with all their outputs, opened in
-Colab or downloaded from {doc}`notebooks/index`.
+and from an informal moiré course among group members. The original
+notebooks can be opened in Google Colab or downloaded from
+{doc}`notebooks/index`.
 ```

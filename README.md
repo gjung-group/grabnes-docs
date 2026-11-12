@@ -65,14 +65,14 @@ Sections:
 | `index.md`, `installation.md` | landing page, compile & Colab instructions |
 | `theory/` | tight-binding models, moiré supercells, observables, TAPW procedure |
 | `examples/` | the supported examples of the code repository (01–11: getting started, moiré, ARPES) with figures and downloadable inputs |
-| `tutorials/` | graphene, bilayer/graphite, twisted bilayer, graphene on hBN, input flags, plotting; `notebooks/` holds the original Jupyter notebooks, rendered with their saved outputs (not executed), with Open-in-Colab and download links |
+| `tutorials/` | the cells of the original Jupyter notebooks, shown unchanged with their saved outputs (not executed): Twistronics 2023 workshop (introduction, graphene, bilayer/graphite, twisted bilayer, graphene on hBN) and the moiré-course notebooks (input files, tBG input files, plotting); `notebooks/` holds the original `.ipynb` files (Colab and download links) |
 | `user-guide/` | input-file format, YAML/JSON input converter, input-key reference (generated upstream, with descriptions), stacking displacements, TAPW + SOC input |
 | `benchmarks/` | benchmark studies; empty illustration stubs are marked "coming soon" |
 | `development/` | code structure, functionality status, validation, coding conventions, `job.out` output style, known issues, SOC/TAPW notes, release readiness, licensing |
 | `reference/` | API reference entry page + generated Fortran unit reference (overview `units.md`, one page per unit in `api/`) |
 | `assets/` | images, downloadable inputs and scripts, logo, fonts, CSS and JS |
 | `_templates/` | Furo sidebar templates (brand, repository links) |
-| `tools/` | sync script for the code repository (`sync_from_code_repo.py`, state in `sync-state.json`) and the API-reference generator (`gen_api_reference.py`) |
+| `tools/` | sync script for the code repository (`sync_from_code_repo.py`, state in `sync-state.json`) and the API-reference generator (`gen_api_reference.py`), and `notebook_pages.py`, which cuts the tutorial pages out of the original notebooks |
 | `.github/workflows/` | `docs.yml` (build and deploy) |
 
 ## Syncing with the code repository
@@ -102,6 +102,12 @@ uv sync                                        # creates .venv from pyproject/uv
 uv run sphinx-build -b html . _build           # build into _build/
 python3 -m http.server 8000 -d _build          # preview at http://127.0.0.1:8000/
 ```
+
+The tutorial pages `tutorials/*.ipynb` are copied from the original notebooks
+in `tutorials/notebooks/`; never edit them by hand. After changing a notebook
+or the page split (`PAGES` in `tools/notebook_pages.py`), run
+`uv run python tools/notebook_pages.py`; CI runs it with `--check` and fails
+if a page differs from its notebook cells.
 
 The CI build treats warnings as errors; check with
 `uv run sphinx-build -b html -W --keep-going . _build` before committing.
