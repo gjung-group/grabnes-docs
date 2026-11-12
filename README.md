@@ -73,7 +73,7 @@ Sections:
 | `assets/` | images, downloadable inputs/scripts/notebooks, logo, fonts, CSS and JS |
 | `_templates/` | Furo sidebar templates (brand, repository links) |
 | `tools/` | sync script for the code repository (`sync_from_code_repo.py`, state in `sync-state.json`) and the API-reference generator (`gen_api_reference.py`) |
-| `.github/workflows/` | `docs.yml` (build and deploy), `sync-upstream.yml` (automatic sync) |
+| `.github/workflows/` | `docs.yml` (build and deploy) |
 
 ## Syncing with the code repository
 
@@ -92,13 +92,8 @@ uv run python tools/gen_api_reference.py               # regenerate reference/un
 Hand-written pages derived from upstream are tracked in
 `tools/sync-state.json`; the script prints `MANUAL` when their source changed.
 
-The sync also runs automatically: `.github/workflows/sync-upstream.yml` checks
-twice a day, at 05:17 and 17:17 UTC (or on demand from the Actions tab), for
-the newest commit on the code repository's `main` whose `regression` workflow
-passed. A clean sync that
-builds with `-W` is committed to `main` and deployed; a sync with `MANUAL`
-items or a failing build is opened as a pull request from `sync/upstream`
-instead, and no further syncs run until it is merged or closed.
+The sync is run by hand; there is no automatic sync workflow. Commit the
+result and push to `main` to deploy it.
 
 ## Building locally
 
@@ -115,6 +110,6 @@ The CI build treats warnings as errors; check with
 
 The live site is at <https://gjung-group.github.io/grabnes-docs/>.
 `.github/workflows/docs.yml` builds the site to `public/` on every push to
-`main` (and when the sync workflow dispatches it) and deploys it to GitHub
+`main` (or when run by hand from the Actions tab) and deploys it to GitHub
 Pages (Settings → Pages → "GitHub Actions"). Pull requests are built too
 (with `-W`) but not deployed.
