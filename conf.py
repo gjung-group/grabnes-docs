@@ -15,9 +15,10 @@ release = "0.1"
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    # myst_nb includes myst_parser and also renders the original Jupyter
-    # notebooks under tutorials/notebooks/ (stored outputs, never executed).
-    "myst_nb",
+    "myst_parser",
+    # nbsphinx renders the tutorial notebooks in the Jupyter Notebook style
+    # (In/Out prompts, input and output areas) with their saved outputs.
+    "nbsphinx",
     "sphinx_design",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
@@ -39,10 +40,16 @@ myst_enable_extensions = [
 
 # The tutorial pages are notebooks shown as saved: they need Google Colab,
 # Google Drive and the compiled code, so they are never executed here.
-nb_execution_mode = "off"
-# Keep the outputs exactly as saved and in their order (merging would reorder
-# stderr and trim text); consecutive streams are joined visually in the CSS.
-nb_merge_streams = False
+nbsphinx_execute = "never"
+
+# nbsphinx converts Markdown cells with pandoc; use the pandoc binary shipped
+# with the pypandoc-binary package, so no system install is needed.
+import os as _os
+import pypandoc as _pypandoc
+
+_os.environ["PATH"] = (
+    _os.path.dirname(_pypandoc.get_pandoc_path()) + _os.pathsep + _os.environ["PATH"]
+)
 
 templates_path = ["_templates"]
 
@@ -52,8 +59,6 @@ templates_path = ["_templates"]
 exclude_patterns = [
     "_build",
     "public",
-    # myst-nb writes notebook images next to the build folder, i.e. here
-    "jupyter_execute",
     ".venv/*",
     "grabnes/*",
     "README.md",
@@ -178,40 +183,6 @@ import notebook_pages as _nbp  # noqa: E402
 _NB_RANGES = _nbp.cell_ranges()
 
 
-def _prompt(text, kind):
-    return nodes.raw("", f'<div class="jp-prompt jp-{kind}prompt">{text}</div>', format="html")
-
-
-def _jupyter_prompts(doctree, nb):
-    """Add JupyterLab's prompt column: `[n]:` beside every code cell (blue)
-    and beside every execute_result (red), with the execution counts saved in
-    the notebook (`[ ]:` where none is saved, as Jupyter shows it)."""
-    for cell in doctree.findall(nodes.container):
-        if cell.get("nb_element") != "cell_code":
-            continue
-        source = nb["cells"][cell["cell_index"]]
-        count = source.get("execution_count")
-        for part in list(cell.children):
-            if part.get("nb_element") == "cell_code_source":
-                part.insert(0, _prompt(f"[{count if count is not None else '&nbsp;'}]:", "in"))
-            elif part.get("nb_element") == "cell_code_output":
-                outputs = source.get("outputs", [])
-                if len(outputs) != len(part.children):
-                    outputs = [{}] * len(part.children)
-                rows = []
-                for out, node in zip(outputs, part.children):
-                    row = nodes.container(classes=["jp-output-row"])
-                    if out.get("output_type") == "execute_result":
-                        n = out.get("execution_count")
-                        row += _prompt(f"[{n if n is not None else '&nbsp;'}]:", "out")
-                    else:
-                        row += _prompt("", "out")
-                    row += node.deepcopy()
-                    rows.append(row)
-                part.children = []
-                part.extend(rows)
-
-
 def _notebook_page(app, doctree):
     docname = app.env.docname
     page_name = docname.removeprefix("tutorials/")
@@ -232,8 +203,6 @@ def _notebook_page(app, doctree):
         "</div>"
     ), format="html")
 
-    _jupyter_prompts(doctree, _nbp.load(_nbp.OUT_DIR / f"{page_name}.ipynb"))
-
     # Notebook metadata (docinfo) must stay a direct child of the document.
     meta = [n for n in doctree.children if isinstance(n, nodes.docinfo)]
     body = [n for n in doctree.children if not isinstance(n, nodes.docinfo)]
@@ -243,7 +212,11 @@ def _notebook_page(app, doctree):
         page += toolbar
         page.extend(body)
     else:
-        page, rest = body[0], body[1:]
+        # nbsphinx puts a few setup nodes (highlightlang, comment) before the
+        # first heading; they stay in front of the page section.
+        first = next(i for i, n in enumerate(body) if isinstance(n, nodes.section))
+        meta.extend(body[:first])
+        page, rest = body[first], body[first + 1:]
         if spec["nest"]:
             page.extend(rest)  # later top-level headings become subsections
         elif rest:
@@ -254,27 +227,19 @@ def _notebook_page(app, doctree):
     doctree += page
 
 
-def _display_math_blocks(text):
-    """Separate `$$` display-math blocks from the surrounding text.
+import re as _re
 
-    Jupyter shows a `$$ ... $$` block that sits inside a paragraph as display
-    math; MyST only does when the block is a paragraph of its own. Blank lines
-    are added before an opening and after a closing `$$` line; the text itself
-    is unchanged.
-    """
-    out, in_math = [], False
-    lines = text.split("\n")
-    for k, line in enumerate(lines):
-        if line.strip() == "$$":
-            if not in_math and out and out[-1].strip():
-                out.append("")
-            out.append(line)
-            if in_math and k + 1 < len(lines) and lines[k + 1].strip():
-                out.append("")
-            in_math = not in_math
-        else:
-            out.append(line)
-    return "\n".join(out)
+# Symbols that occur as math inside link texts of the notebooks.
+_LINK_MATH = {r"\pi": "\u03c0"}
+
+
+def _math_link(m):
+    def symbol(math):
+        if math.group(1) not in _LINK_MATH:
+            raise ValueError(f"math in a notebook link text: add {math.group(1)!r} to _LINK_MATH")
+        return _LINK_MATH[math.group(1)]
+
+    return "[" + _re.sub(r"\$([^$]+)\$", symbol, m.group(1)) + "](" + m.group(2) + ")"
 
 
 def _notebook_source(app, docname, source):
@@ -291,7 +256,10 @@ def _notebook_source(app, docname, source):
         # The notebook links to the driver library as a file next to it; on
         # the website it lives in assets/downloads/.
         text = text.replace("](./PyToGrabnes.py)", "](../assets/downloads/PyToGrabnes.py)")
-        cell["source"] = _display_math_blocks(text)
+        # nbsphinx (pandoc -> reST) cannot nest math in a link text: the
+        # symbol is written as its Unicode character there instead.
+        text = _re.sub(r"\[([^\]]*\$[^\]]*)\]\((https?://[^)\s]+)\)", _math_link, text)
+        cell["source"] = text
     source[0] = json.dumps(nb)
 
 
@@ -307,6 +275,23 @@ def _copy_notebooks(app, exception):
         shutil.copy2(nb, out)
 
 
+def _limit_nbsphinx_link_rewriting(app):
+    # nbsphinx rewrites every same-page "#fragment" link into a label that it
+    # only creates for notebooks; on MyST pages ([](#label)) that breaks the
+    # link. Apply its rewriting to the notebook pages only.
+    import nbsphinx
+
+    class NotebookLocalLinks(nbsphinx.RewriteLocalLinks):
+        def apply(self):
+            if self.document.settings.env.docname.removeprefix("tutorials/") in _nbp.PAGES:
+                super().apply()
+
+    app.registry.transforms[:] = [
+        NotebookLocalLinks if t is nbsphinx.RewriteLocalLinks else t
+        for t in app.registry.transforms
+    ]
+
+
 def setup(app):
     app.add_directive("task", Task)
     app.add_directive("todo", Todo)
@@ -314,3 +299,4 @@ def setup(app):
     app.connect("doctree-read", _notebook_page, priority=400)
     app.connect("source-read", _notebook_source)
     app.connect("build-finished", _copy_notebooks)
+    _limit_nbsphinx_link_rewriting(app)

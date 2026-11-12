@@ -45,7 +45,7 @@ related heterostructures.
 ## Current state
 
 The site is a Sphinx documentation tree whose **source directory is the
-repository root**, built with MyST-Markdown, myst-nb (notebooks), the Furo theme, sphinx-design
+repository root**, built with MyST-Markdown, nbsphinx (notebooks), the Furo theme, sphinx-design
 and sphinx-copybutton, and deployed to GitHub Pages by a GitHub Actions workflow.
 The look is customized in `assets/static/grabnes.css` (Inter font, brand
 colours from the logo, landing-page hero, cards and tables, light and dark
@@ -65,7 +65,7 @@ Sections:
 | `index.md`, `installation.md` | landing page, compile & Colab instructions |
 | `theory/` | tight-binding models, moiré supercells, observables, TAPW procedure |
 | `examples/` | the supported examples of the code repository (01–11: getting started, moiré, ARPES) with figures and downloadable inputs |
-| `tutorials/` | the cells of the original Jupyter notebooks, shown unchanged with their saved outputs (not executed): Twistronics 2023 workshop (introduction, graphene, bilayer/graphite, twisted bilayer, graphene on hBN) and the moiré-course notebooks (input files, tBG input files, plotting); `notebooks/` holds the original `.ipynb` files (Colab and download links) |
+| `tutorials/` | the cells of the original Jupyter notebooks, shown unchanged with their saved outputs (not executed, rendered by nbsphinx): Twistronics 2023 workshop (introduction, graphene, bilayer/graphite, twisted bilayer, graphene on hBN) and the moiré-course notebooks (input files, tBG input files, plotting); `notebooks/` holds the original `.ipynb` files (Colab and download links) |
 | `user-guide/` | input-file format, YAML/JSON input converter, input-key reference (generated upstream, with descriptions), stacking displacements, TAPW + SOC input |
 | `benchmarks/` | benchmark studies; empty illustration stubs are marked "coming soon" |
 | `development/` | code structure, functionality status, validation, coding conventions, `job.out` output style, known issues, SOC/TAPW notes, release readiness, licensing |
