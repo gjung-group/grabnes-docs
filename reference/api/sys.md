@@ -2,296 +2,70 @@
 # `sys`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/sys.F90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/sys.F90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/sys.F90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`format <api-format>`, {ref}`io <api-io>`, {ref}`mpi <api-mpi>`
 :Used by: {ref}`file <api-file>`, {ref}`input <api-input>`, {ref}`mem <api-mem>`, {ref}`mio <api-mio>`, {ref}`parser <api-parser>`, {ref}`timer <api-timer>`
 :Public interface: 9 procedures, 1 generic interface
 
-## Procedure summary
+## Procedures
 
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 36 64
+:widths: 34 14 52
 
 * - Procedure
-  - Description
+  - Kind
+  - Summary
 * - {ref}`SysDebugging <api-sys-sysdebugging>`
-  - —
+  - function
+  - True if debug output is on for this module (or for every module).
 * - {ref}`SysKill <api-sys-syskill>`
-  - —
+  - subroutine
+  - Display an error notification and terminates the program.
 * - {ref}`SysKillFlush <api-sys-syskillflush>`
-  - —
+  - subroutine
+  - If there are errors, the program stops
 * - {ref}`SysPrintDebug <api-sys-sysprintdebug>`
-  - —
+  - subroutine
+  - Print a debug line, "module: DEBUG: message", only when debug output is on for the module (Output.Debug, Output.DebugModules) or when 'force' is true (a module's own debug key, e.g.
 * - {ref}`SysPrintErrors <api-sys-sysprinterrors>`
-  - —
+  - subroutine
+  - Print the count of errors and warnings.
 * - {ref}`SysSection <api-sys-syssection>`
-  - —
+  - subroutine
+  - Print a section header: a blank line, then one line of '=' that carries the title and the module.
 * - {ref}`SysSetDebug <api-sys-syssetdebug>`
-  - —
+  - subroutine
+  - Switch debug output on or off, for every module (no module given) or for one module.
 * - {ref}`SysSubsection <api-sys-syssubsection>`
-  - —
+  - subroutine
+  - Print a sub-section title inside a section: "module: --- title ---".
 * - {ref}`SysWarning <api-sys-syswarning>`
-  - —
+  - subroutine
+  - Display a warning notification
 ```
 
 ## Generic interfaces
 
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 30 70
+(api-sys-interface-sysprint)=
+### `SysPrint`
 
-* - Interface
-  - Specific procedures
-* - `SysPrint`
-  - `SysPrint_mod`, `SysPrint__`
+Specific procedures: `SysPrint_mod`, `SysPrint__`.
+
+Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 49`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/sys.F90#L49).
+
+```{toctree}
+:hidden:
+
+sys/sysdebugging
+sys/syskill
+sys/syskillflush
+sys/sysprintdebug
+sys/sysprinterrors
+sys/syssection
+sys/syssetdebug
+sys/syssubsection
+sys/syswarning
 ```
-
-## Procedures
-
-(api-sys-sysdebugging)=
-### `SysDebugging`
-
-```fortran
-logical function SysDebugging(module)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`SysDebugging`: `logical`
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 450`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L450).
-
-(api-sys-syskill)=
-### `SysKill`
-
-```fortran
-subroutine SysKill(message, module, func, hold)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `message`
-  - `character(len=*), intent(in)`
-  - —
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-* - `func`
-  - `character(len=*), intent(in), optional`
-  - —
-* - `hold`
-  - `logical, intent(in), optional`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 72`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L72).
-
-(api-sys-syskillflush)=
-### `SysKillFlush`
-
-```fortran
-subroutine SysKillFlush()
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 324`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L324).
-
-(api-sys-sysprintdebug)=
-### `SysPrintDebug`
-
-```fortran
-subroutine SysPrintDebug(message, module, force)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `message`
-  - `character(len=*), intent(in)`
-  - —
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-* - `force`
-  - `logical, intent(in), optional`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 480`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L480).
-
-(api-sys-sysprinterrors)=
-### `SysPrintErrors`
-
-```fortran
-subroutine SysPrintErrors(final)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `final`
-  - `logical, intent(in), optional`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 284`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L284).
-
-(api-sys-syssection)=
-### `SysSection`
-
-```fortran
-subroutine SysSection(title, module)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `title`
-  - `character(len=*), intent(in)`
-  - —
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 363`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L363).
-
-(api-sys-syssetdebug)=
-### `SysSetDebug`
-
-```fortran
-subroutine SysSetDebug(on, module)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `on`
-  - `logical, intent(in)`
-  - —
-* - `module`
-  - `character(len=*), intent(in), optional`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 411`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L411).
-
-(api-sys-syssubsection)=
-### `SysSubsection`
-
-```fortran
-subroutine SysSubsection(title, module)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `title`
-  - `character(len=*), intent(in)`
-  - —
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 391`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L391).
-
-(api-sys-syswarning)=
-### `SysWarning`
-
-```fortran
-subroutine SysWarning(message, module, func)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `message`
-  - `character(len=*), intent(in)`
-  - —
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-* - `func`
-  - `character(len=*), intent(in), optional`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/sys.F90, line 137`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/sys.F90#L137).

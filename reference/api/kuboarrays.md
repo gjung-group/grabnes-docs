@@ -2,7 +2,7 @@
 # `kuboarrays`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/kuboarrays.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/kuboarrays.f90#L1)
+:Source: [`lanczosKuboCode/Src/kuboarrays.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/kuboarrays.f90#L1)
 :Group: {ref}`Solver <api-group-solver>`
 :Uses: {ref}`mio <api-mio>`
 :Used by: {ref}`calc <api-calc>`, {ref}`kubosubs <api-kubosubs>`
@@ -13,45 +13,58 @@
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 26 44 30
+:widths: 18 30 18 34
 
 * - Name
   - Declaration
   - Initial value
+  - Description
 * - `a`
   - `real(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `b`
   - `real(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `c`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `H`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `Psi`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `Psin`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `Psinm1`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `tempD`
   - `real(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `tempZ`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `XpnPsi`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `XpnPsim1`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 * - `ZUPsi`
   - `complex(dp), dimension(:), pointer`
   - `NULL()`
+  - —
 ```

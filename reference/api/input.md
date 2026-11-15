@@ -2,146 +2,116 @@
 # `input`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/input.F90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/input.F90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/input.F90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/input.F90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`debug <api-debug>`, {ref}`file <api-file>`, {ref}`io <api-io>`, {ref}`mem <api-mem>`, {ref}`mpi <api-mpi>`, `omp_lib`, {ref}`options <api-options>`, {ref}`parser <api-parser>`, {ref}`precision <api-precision>`, {ref}`string <api-string>`, {ref}`sys <api-sys>`, {ref}`timer <api-timer>`
 :Used by: {ref}`mio <api-mio>`
 :Public interface: 4 procedures, 4 generic interfaces
 
-## Procedure summary
+## Procedures
 
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 36 64
+:widths: 34 14 52
 
 * - Procedure
-  - Description
+  - Kind
+  - Summary
 * - {ref}`InputAddAlias <api-input-inputaddalias>`
-  - —
+  - subroutine
+  - Declare that the key newName (Section.Name form) and the key oldName are the same key.
 * - {ref}`InputClose <api-input-inputclose>`
-  - —
+  - subroutine
+  - Close input module
 * - {ref}`InputInit <api-input-inputinit>`
-  - —
+  - subroutine
+  - Initialize the input information
 * - {ref}`InputSearchLabel <api-input-inputsearchlabel>`
-  - —
+  - function
+  - Search a key in the input file, taking alternative names into account.
 ```
 
 ## Generic interfaces
 
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 30 70
+(api-input-interface-inputblock)=
+### `InputBlock`
 
-* - Interface
-  - Specific procedures
-* - `InputBlock`
-  - `InputBl_i`, `InputBl_r`, `InputBl_d`, `InputBl_l`, `InputBl_s`, `InputBl_im`, `InputBl_rm`, `InputBl_dm`, `InputBl_lm`, `InputBl_imi`, `InputBl_rmi`, `InputBl_dmi`, `InputBl_lmi`
-* - `InputFindBlock`
-  - `InputFindBl`, `InputFindBl_i`, `InputFindBl_s`
-* - `InputParameter`
-  - `InputPar_i`, `InputPar_d`, `InputPar_r`, `InputPar_l`, `InputPar_s`, `InputPar_is`, `InputPar_ds`, `InputPar_rs`, `InputPar_ls`
-* - `InputParameterVariable`
-  - `InputPar_i_variable`
+Get elements from a block
+
+```{rubric} Arguments (from the source comment)
 ```
 
-## Procedures
+`character label`
+: Label of the block
 
-(api-input-inputaddalias)=
-### `InputAddAlias`
+`integer column`
+: Column number
 
-```fortran
-subroutine InputAddAlias(newName, oldName)
+`* value`
+: Elements obtained from the block
+
+Specific procedures: `InputBl_i`, `InputBl_r`, `InputBl_d`, `InputBl_l`, `InputBl_s`, `InputBl_im`, `InputBl_rm`, `InputBl_dm`, `InputBl_lm`, `InputBl_imi`, `InputBl_rmi`, `InputBl_dmi`, `InputBl_lmi`.
+
+Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 72`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/input.F90#L72).
+
+(api-input-interface-inputfindblock)=
+### `InputFindBlock`
+
+Finds a block
+
+```{rubric} Arguments (from the source comment)
 ```
 
-```{rubric} Arguments
+`character label`
+: Label of the block
+
+`logical found`
+: True if the block is found
+
+Specific procedures: `InputFindBl`, `InputFindBl_i`, `InputFindBl_s`.
+
+Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 68`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/input.F90#L68).
+
+(api-input-interface-inputparameter)=
+### `InputParameter`
+
+Returns the parameter with the specified label from input file
+
+```{rubric} Arguments (from the source comment)
 ```
 
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
+`character label`
+: Label of the parameter
 
-* - Name
-  - Declaration
-  - Description
-* - `newName`
-  - `character(len=*), intent(in)`
-  - —
-* - `oldName`
-  - `character(len=*), intent(in)`
-  - —
+`* def(:)`
+: Default value
+
+`character(*) defstr`
+: Default string if it's required
+
+`* value`
+: Value for the parameter
+
+`character(*) str`
+: Optional string found after the values
+
+Specific procedures: `InputPar_i`, `InputPar_d`, `InputPar_r`, `InputPar_l`, `InputPar_s`, `InputPar_is`, `InputPar_ds`, `InputPar_rs`, `InputPar_ls`.
+
+Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 58`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/input.F90#L58).
+
+(api-input-interface-inputparametervariable)=
+### `InputParameterVariable`
+
+Specific procedures: `InputPar_i_variable`.
+
+Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 64`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/input.F90#L64).
+
+```{toctree}
+:hidden:
+
+input/inputaddalias
+input/inputclose
+input/inputinit
+input/inputsearchlabel
 ```
-
-Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 1518`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/input.F90#L1518).
-
-(api-input-inputclose)=
-### `InputClose`
-
-```fortran
-subroutine InputClose()
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 301`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/input.F90#L301).
-
-(api-input-inputinit)=
-### `InputInit`
-
-```fortran
-subroutine InputInit(success)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `success`
-  - `logical, intent(out)`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 95`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/input.F90#L95).
-
-(api-input-inputsearchlabel)=
-### `InputSearchLabel`
-
-```fortran
-function InputSearchLabel(label, str, lineid) result(found)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `label`
-  - `character(len=*), intent(in)`
-  - —
-* - `str`
-  - `character(len=*), intent(out), optional`
-  - —
-* - `lineid`
-  - `integer, intent(out), optional`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`found`: `logical`
-
-Defined in [`lanczosKuboCode/Src/MIO/input.F90, line 1451`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/input.F90#L1451).

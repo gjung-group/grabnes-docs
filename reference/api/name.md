@@ -2,7 +2,7 @@
 # `name`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/name.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/name.f90#L1)
+:Source: [`lanczosKuboCode/Src/name.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/name.f90#L1)
 :Group: {ref}`Solver <api-group-solver>`
 :Uses: —
 :Used by: {ref}`atoms <api-atoms>`, {ref}`calc <api-calc>`, {ref}`cell <api-cell>`, {ref}`diag <api-diag>`, {ref}`grabnes_start <api-grabnes_start>`, {ref}`ham <api-ham>`, {ref}`kubo <api-kubo>`, {ref}`kubosubs <api-kubosubs>`, {ref}`magf <api-magf>`, {ref}`moireBLShift <api-moireblshift>`, {ref}`random <api-random>`
@@ -13,15 +13,18 @@
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 26 44 30
+:widths: 18 30 18 34
 
 * - Name
   - Declaration
   - Initial value
+  - Description
 * - `prefix`
   - `character(len=60), save`
   - —
+  - —
 * - `sysname`
   - `character(len=60), save`
+  - —
   - —
 ```

@@ -2,32 +2,29 @@
 # `grabnes_end`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/grabnes_end.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/grabnes_end.f90#L1)
+:Source: [`lanczosKuboCode/Src/grabnes_end.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/grabnes_end.f90#L1)
 :Group: {ref}`Solver <api-group-solver>`
 :Uses: {ref}`mio <api-mio>`
 :Used by: {ref}`grabnes <api-grabnes>`
 :Public interface: 1 procedure
 
-## Procedure summary
+## Procedures
 
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 36 64
+:widths: 34 14 52
 
 * - Procedure
-  - Description
+  - Kind
+  - Summary
 * - {ref}`GrabnesEnd <api-grabnes_end-grabnesend>`
+  - subroutine
   - —
 ```
 
-## Procedures
+```{toctree}
+:hidden:
 
-(api-grabnes_end-grabnesend)=
-### `GrabnesEnd`
-
-```fortran
-subroutine GrabnesEnd()
+grabnes_end/grabnesend
 ```
-
-Defined in [`lanczosKuboCode/Src/grabnes_end.f90, line 11`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/grabnes_end.f90#L11).

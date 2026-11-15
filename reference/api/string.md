@@ -2,7 +2,7 @@
 # `string`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/string.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/string.f90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/string.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/string.f90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`io <api-io>`
 :Used by: {ref}`input <api-input>`, {ref}`mio <api-mio>`, {ref}`parser <api-parser>`
@@ -10,13 +10,20 @@
 
 ## Generic interfaces
 
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 30 70
+(api-string-interface-stringcomp)=
+### `StringComp`
 
-* - Interface
-  - Specific procedures
-* - `StringComp`
-  - `StringComp_s`, `StringComp_v`
+Compare two strings and check whether they are equal
+
+```{rubric} Arguments (from the source comment)
 ```
+
+`character string1, string2`
+: Strings to be compared
+
+`logical equal`
+: True if the strings are equal
+
+Specific procedures: `StringComp_s`, `StringComp_v`.
+
+Defined in [`lanczosKuboCode/Src/MIO/string.f90, line 23`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/string.f90#L23).

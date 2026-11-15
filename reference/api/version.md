@@ -2,53 +2,33 @@
 # `version`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/version.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/version.f90#L1)
+:Source: [`lanczosKuboCode/Src/version.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/version.f90#L1)
 :Group: {ref}`Solver <api-group-solver>`
 :Uses: —
 :Used by: —
 :Public interface: 2 procedures
 
-## Procedure summary
+## Procedures
 
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 36 64
+:widths: 34 14 52
 
 * - Procedure
-  - Description
+  - Kind
+  - Summary
 * - {ref}`VersionGet <api-version-versionget>`
-  - —
+  - function
+  - Get the version number in variable 'ver', updated at compilation time.
 * - {ref}`VersionUpdate <api-version-versionupdate>`
-  - —
+  - function
+  - Get the date of the last update in variable 'update', updated at compilation time.
 ```
 
-## Procedures
+```{toctree}
+:hidden:
 
-(api-version-versionget)=
-### `VersionGet`
-
-```fortran
-function VersionGet() result(res)
+version/versionget
+version/versionupdate
 ```
-
-```{rubric} Returns
-```
-
-`res`: `character(len=len)`
-
-Defined in [`lanczosKuboCode/Src/version.f90, line 21`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/version.f90#L21).
-
-(api-version-versionupdate)=
-### `VersionUpdate`
-
-```fortran
-function VersionUpdate() result(res)
-```
-
-```{rubric} Returns
-```
-
-`res`: `character(len=len)`
-
-Defined in [`lanczosKuboCode/Src/version.f90, line 41`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/version.f90#L41).

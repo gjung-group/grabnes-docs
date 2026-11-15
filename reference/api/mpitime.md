@@ -2,78 +2,33 @@
 # `mpitime`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/MPI/mpitime.F90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/MPI/mpitime.F90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/MPI/mpitime.F90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/MPI/mpitime.F90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`mpikinds <api-mpikinds>`
 :Used by: {ref}`mpi <api-mpi>`
 :Public interface: 2 procedures
 
-## Procedure summary
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 36 64
-
-* - Procedure
-  - Description
-* - {ref}`MPITimer <api-mpitime-mpitimer>`
-  - —
-* - {ref}`MPITimerGet <api-mpitime-mpitimerget>`
-  - —
-```
-
 ## Procedures
 
-(api-mpitime-mpitimer)=
-### `MPITimer`
-
-```fortran
-subroutine MPITimer(action)
-```
-
-```{rubric} Arguments
-```
-
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 18 40 42
+:widths: 34 14 52
 
-* - Name
-  - Declaration
-  - Description
-* - `action`
-  - `integer, intent(in)`
-  - —
+* - Procedure
+  - Kind
+  - Summary
+* - {ref}`MPITimer <api-mpitime-mpitimer>`
+  - subroutine
+  - Count the time for MPI modules
+* - {ref}`MPITimerGet <api-mpitime-mpitimerget>`
+  - subroutine
+  - Get the time
 ```
 
-Defined in [`lanczosKuboCode/Src/MIO/MPI/mpitime.F90, line 42`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/MPI/mpitime.F90#L42).
+```{toctree}
+:hidden:
 
-(api-mpitime-mpitimerget)=
-### `MPITimerGet`
-
-```fortran
-subroutine MPITimerGet(t, nc)
+mpitime/mpitimer
+mpitime/mpitimerget
 ```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `t`
-  - `real(dp), intent(out)`
-  - —
-* - `nc`
-  - `integer, intent(out)`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/MPI/mpitime.F90, line 78`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/MPI/mpitime.F90#L78).

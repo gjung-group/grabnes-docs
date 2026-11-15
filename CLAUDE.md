@@ -86,7 +86,7 @@ development/               # code-structure guide + documents copied from the co
                            # repo (functionality-status, validation, conventions…)
 reference/index.md         # "API Reference" entry page (unit tables, links into units)
 reference/units.md         # generated Fortran unit reference (overview) — never hand-edit
-reference/api/             # generated: one page per Fortran unit — never hand-edit
+reference/api/             # generated: one page per Fortran unit, and api/<unit>/ one per public procedure — never hand-edit
 tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Ford + Doxygen comments)
 .github/workflows/docs.yml # build + deploy to GitHub Pages
 ```
@@ -130,7 +130,7 @@ tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Fo
 5. Do not commit `_build/`, `public/`, `__pycache__`, `.ipynb_checkpoints`, `.DS_Store` (see `.gitignore`).
 6. The old tree under `grabnes/` stays read-only until migration is verified; delete it (and `grabnes.tar.gz`) only in a final, separate commit.
 7. Python tooling: declare deps in `pyproject.toml` (`sphinx`, `furo`, `myst-parser`, `nbsphinx`, `pypandoc-binary`, `ipython`, `sphinx-design`, `sphinx-copybutton`, `sphinx-notfound-page`, `sphinx-sitemap`, `ford`, `gitpython`); `uv sync` builds `.venv` from `uv.lock`, and CI installs the same way.
-8. `reference/units.md` and `reference/api/*.md` are generated (Ford over upstream `main`, run on a comment-normalized temp copy, plus the Doxygen `@brief`/`@param` blocks and the `!! - \`Key\`:` input-key items of the sources, quoted verbatim): after upstream changes run `uv run python tools/sync_from_code_repo.py` and commit the result; never hand-edit these files.
+8. `reference/units.md` and `reference/api/**/*.md` are generated (Ford over upstream `main`, run on a comment-normalized temp copy, plus the Doxygen blocks (`@brief`, `@param`, `@par`, `@see`, ...) or, without one, the plain comment above each definition (MIO `INPUT`/`OUTPUT` headers give the parameter descriptions), and the `!! - \`Key\`:` input-key items of the sources, all quoted verbatim; calls/callers from Ford's `correlate()`): after upstream changes run `uv run python tools/sync_from_code_repo.py` and commit the result; never hand-edit these files.
 9. Commits: small, imperative-mood messages ("Add theory/models page…").
 
 ## 7. Open questions / follow-ups

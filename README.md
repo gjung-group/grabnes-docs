@@ -81,8 +81,9 @@ Sections:
 Part of the content is mirrored from `main` of the code repository
 (`docs/development`, `docs/user-guide`, example inputs and figures), and
 `reference/units.md` and `reference/api/` are generated from its sources with
-Ford, plus the Doxygen (`@brief`, `@param`, ...) and `!!` input-key comments of
-the sources, quoted verbatim. Never hand-edit mirrored files or the generated
+Ford (one page per unit and one per public procedure), plus the Doxygen
+(`@brief`, `@param`, ...) blocks or plain comments above each definition and the
+`!!` input-key comments of the sources, quoted verbatim. Never hand-edit mirrored files or the generated
 reference.
 
 ```bash

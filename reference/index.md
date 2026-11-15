@@ -12,11 +12,13 @@ program is organized as one main program and the modules listed below, in the
 `lanczosKuboCode/Src/` folder of the
 [code repository](https://github.com/gjung-group/grabnes). The complete
 reference is generated directly from the sources: the {doc}`units` page
-groups the units by how they are built, and each unit has its own page with
-its procedures (signature, argument declarations and descriptions), generic
-interfaces, derived types, module variables, the units it uses and is used
-by, the input keys each routine reads with their descriptions, and links to
-the definitions in the source at the documented commit.
+groups the units by how they are built; each unit has its own page with its
+procedures, generic interfaces, derived types, module variables, and the units
+it uses and is used by; and each public procedure has its own page with its
+signature, parameters, return value, the input keys it reads with their
+descriptions, the procedures it calls and is called by, and a link to its
+definition in the source at the documented commit. Every procedure is also in
+the general index and the search.
 
 For what each module does, see {doc}`../development/index`; for the complete
 list of input keys with their types and defaults, see

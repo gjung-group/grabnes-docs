@@ -2,86 +2,37 @@
 # `timer`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/timer.F90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/timer.F90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/timer.F90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/timer.F90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`mem <api-mem>`, {ref}`mpi <api-mpi>`, {ref}`precision <api-precision>`, {ref}`sys <api-sys>`
 :Used by: {ref}`input <api-input>`, {ref}`mio <api-mio>`
 :Public interface: 3 procedures
 
-## Procedure summary
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 36 64
-
-* - Procedure
-  - Description
-* - {ref}`TimerCount <api-timer-timercount>`
-  - —
-* - {ref}`TimerPrint <api-timer-timerprint>`
-  - —
-* - {ref}`TimerStop <api-timer-timerstop>`
-  - —
-```
-
 ## Procedures
 
-(api-timer-timercount)=
-### `TimerCount`
-
-```fortran
-subroutine TimerCount(module)
-```
-
-```{rubric} Arguments
-```
-
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 18 40 42
+:widths: 34 14 52
 
-* - Name
-  - Declaration
-  - Description
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
+* - Procedure
+  - Kind
+  - Summary
+* - {ref}`TimerCount <api-timer-timercount>`
+  - subroutine
+  - Count the time for a specified module
+* - {ref}`TimerPrint <api-timer-timerprint>`
+  - subroutine
+  - Print timers
+* - {ref}`TimerStop <api-timer-timerstop>`
+  - subroutine
+  - Stop the timer for a specified module
 ```
 
-Defined in [`lanczosKuboCode/Src/MIO/timer.F90, line 57`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/timer.F90#L57).
+```{toctree}
+:hidden:
 
-(api-timer-timerprint)=
-### `TimerPrint`
-
-```fortran
-subroutine TimerPrint()
+timer/timercount
+timer/timerprint
+timer/timerstop
 ```
-
-Defined in [`lanczosKuboCode/Src/MIO/timer.F90, line 167`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/timer.F90#L167).
-
-(api-timer-timerstop)=
-### `TimerStop`
-
-```fortran
-subroutine TimerStop(module)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `module`
-  - `character(len=*), intent(in)`
-  - —
-```
-
-Defined in [`lanczosKuboCode/Src/MIO/timer.F90, line 121`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/timer.F90#L121).

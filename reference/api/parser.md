@@ -2,7 +2,7 @@
 # `parser`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/parser.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/parser.f90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/parser.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/parser.f90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`format <api-format>`, {ref}`io <api-io>`, {ref}`precision <api-precision>`, {ref}`string <api-string>`, {ref}`sys <api-sys>`
 :Used by: {ref}`input <api-input>`, {ref}`mio <api-mio>`
@@ -10,15 +10,50 @@
 
 ## Generic interfaces
 
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 30 70
+(api-parser-interface-parsercheck)=
+### `ParserCheck`
 
-* - Interface
-  - Specific procedures
-* - `ParserCheck`
-  - `ParserCheck_i`, `ParserCheck_r`, `ParserCheck_d`, `ParserCheck_s`, `ParserCheck_l`
-* - `ParserFindValue`
-  - `ParserFindValue_i`, `ParserFindValue_d`
+Check if some value within a string is correct for its type
+
+```{rubric} Arguments (from the source comment)
 ```
+
+`character string`
+: String where to look for
+
+`integer enum`
+: Number of the element inside string
+
+`* value`
+: Value obtained from the string
+
+`integer err`
+: Number of error
+
+Specific procedures: `ParserCheck_i`, `ParserCheck_r`, `ParserCheck_d`, `ParserCheck_s`, `ParserCheck_l`.
+
+Defined in [`lanczosKuboCode/Src/MIO/parser.f90, line 22`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/parser.f90#L22).
+
+(api-parser-interface-parserfindvalue)=
+### `ParserFindValue`
+
+Find a value in a string. The expression is of the form: 'name = value'
+
+```{rubric} Arguments (from the source comment)
+```
+
+`character name`
+: Name of the value to find
+
+`character string`
+: String where to look for the value
+
+`* value`
+: The value found
+
+`logical found`
+: True if the value is found
+
+Specific procedures: `ParserFindValue_i`, `ParserFindValue_d`.
+
+Defined in [`lanczosKuboCode/Src/MIO/parser.f90, line 27`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/parser.f90#L27).

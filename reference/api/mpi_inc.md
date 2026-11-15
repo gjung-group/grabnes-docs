@@ -2,7 +2,7 @@
 # `mpi_inc`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/MPI/mpi_inc.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/MPI/mpi_inc.f90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/MPI/mpi_inc.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/MPI/mpi_inc.f90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: —
 :Used by: {ref}`mpi <api-mpi>`
@@ -13,24 +13,30 @@
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 26 44 30
+:widths: 18 30 18 34
 
 * - Name
   - Declaration
   - Initial value
+  - Description
 * - `defPNode`
   - `integer, parameter`
   - `0`
+  - —
 * - `IsPNode`
   - `logical, save`
   - `.true.`
+  - —
 * - `Node`
   - `integer, save`
   - `0`
+  - —
 * - `nProc`
   - `integer, save`
   - `1`
+  - —
 * - `rankPNode`
   - `integer, save`
   - `defPNode`
+  - —
 ```

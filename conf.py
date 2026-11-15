@@ -40,6 +40,7 @@ copybutton_exclude = ".linenos, .gp, .go"
 
 myst_enable_extensions = [
     "colon_fence",
+    "deflist",  # definition lists: parameters of the API reference
     "tasklist",  # "- [ ]" task lists of the notebooks, as Jupyter shows them
     "dollarmath",
     "amsmath",

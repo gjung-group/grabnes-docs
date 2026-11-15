@@ -2,334 +2,81 @@
 # `format`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/MIO/format.f90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L13)
+:Source: [`lanczosKuboCode/Src/MIO/format.f90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/format.f90#L13)
 :Group: {ref}`MIO library <api-group-mio>`
 :Uses: {ref}`io <api-io>`, {ref}`precision <api-precision>`
 :Used by: {ref}`file <api-file>`, {ref}`mem <api-mem>`, {ref}`mio <api-mio>`, {ref}`parser <api-parser>`, {ref}`sys <api-sys>`
 :Public interface: 9 procedures, 1 generic interface
 
-## Procedure summary
+## Procedures
 
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 36 64
+:widths: 34 14 52
 
 * - Procedure
-  - Description
+  - Kind
+  - Summary
 * - {ref}`lowercase <api-format-lowercase>`
-  - —
+  - function
+  - Converts a string to lowercase only
 * - {ref}`num2bytes <api-format-num2bytes>`
-  - —
+  - function
+  - Converts a number of bytes to a string with the proper representation
 * - {ref}`num2month <api-format-num2month>`
-  - —
+  - function
+  - Converts a number to a string with the corresponding month
 * - {ref}`num2strc <api-format-num2strc>`
+  - function
   - —
 * - {ref}`num2strd <api-format-num2strd>`
+  - function
   - —
 * - {ref}`num2stri <api-format-num2stri>`
+  - function
   - —
 * - {ref}`num2strr <api-format-num2strr>`
+  - function
   - —
 * - {ref}`num2strz <api-format-num2strz>`
+  - function
   - —
 * - {ref}`uppercase <api-format-uppercase>`
-  - —
+  - function
+  - Converts a string to uppercase only
 ```
 
 ## Generic interfaces
 
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 30 70
+(api-format-interface-num2string)=
+### `num2string`
 
-* - Interface
-  - Specific procedures
-* - `num2string`
-  - {ref}`num2stri <api-format-num2stri>`, {ref}`num2strd <api-format-num2strd>`, {ref}`num2strz <api-format-num2strz>`, {ref}`num2strr <api-format-num2strr>`, {ref}`num2strc <api-format-num2strc>`
+Converts a number to a character string. Integer, real and complex version are available (in single and double precision for real and complex). The number of decimal digits can be chosen for real and complex conversions, the precision should be between 1 and 15.
+
+```{rubric} Arguments (from the source comment)
 ```
 
-## Procedures
+`* num`
+: The number to be converted
 
-(api-format-lowercase)=
-### `lowercase`
+`integer dec`
+: Decimal precision for real and complex numbers
 
-```fortran
-elemental function lowercase(str) result(lcstr)
+Specific procedures: {ref}`num2stri <api-format-num2stri>`, {ref}`num2strd <api-format-num2strd>`, {ref}`num2strz <api-format-num2strz>`, {ref}`num2strr <api-format-num2strr>`, {ref}`num2strc <api-format-num2strc>`.
+
+Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 33`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/MIO/format.f90#L33).
+
+```{toctree}
+:hidden:
+
+format/lowercase
+format/num2bytes
+format/num2month
+format/num2strc
+format/num2strd
+format/num2stri
+format/num2strr
+format/num2strz
+format/uppercase
 ```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `str`
-  - `character(len=*), intent(in)`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`lcstr`: `character(len=maxlinel)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 244`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L244).
-
-(api-format-num2bytes)=
-### `num2bytes`
-
-```fortran
-elemental function num2bytes(num) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `integer(8), intent(in)`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=30)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 200`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L200).
-
-(api-format-num2month)=
-### `num2month`
-
-```fortran
-elemental function num2month(num) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `integer, intent(in)`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=9)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 169`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L169).
-
-(api-format-num2strc)=
-### `num2strc`
-
-```fortran
-elemental function num2strc(num, dec) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `complex(sp), intent(in)`
-  - —
-* - `dec`
-  - `integer, intent(in), optional`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=strlen)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 92`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L92).
-
-(api-format-num2strd)=
-### `num2strd`
-
-```fortran
-elemental function num2strd(num, dec) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `real(dp), intent(in)`
-  - —
-* - `dec`
-  - `integer, intent(in), optional`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=strlen)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 105`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L105).
-
-(api-format-num2stri)=
-### `num2stri`
-
-```fortran
-elemental function num2stri(num) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `integer, intent(in)`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=strlen)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 54`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L54).
-
-(api-format-num2strr)=
-### `num2strr`
-
-```fortran
-elemental function num2strr(num, dec) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `real(sp), intent(in)`
-  - —
-* - `dec`
-  - `integer, intent(in), optional`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=strlen)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 63`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L63).
-
-(api-format-num2strz)=
-### `num2strz`
-
-```fortran
-elemental function num2strz(num, dec) result(string)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `num`
-  - `complex(dp), intent(in)`
-  - —
-* - `dec`
-  - `integer, intent(in), optional`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`string`: `character(len=strlen)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 142`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L142).
-
-(api-format-uppercase)=
-### `uppercase`
-
-```fortran
-elemental function uppercase(str) result(lcstr)
-```
-
-```{rubric} Arguments
-```
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 18 40 42
-
-* - Name
-  - Declaration
-  - Description
-* - `str`
-  - `character(len=*), intent(in)`
-  - —
-```
-
-```{rubric} Returns
-```
-
-`lcstr`: `character(len=maxlinel)`
-
-Defined in [`lanczosKuboCode/Src/MIO/format.f90, line 283`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/MIO/format.f90#L283).

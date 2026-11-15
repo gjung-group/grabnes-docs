@@ -2,66 +2,33 @@
 # `calc`
 
 :Kind: Module
-:Source: [`lanczosKuboCode/Src/calc.F90`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/calc.F90#L1)
+:Source: [`lanczosKuboCode/Src/calc.F90`](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/calc.F90#L1)
 :Group: {ref}`Solver <api-group-solver>`
 :Uses: {ref}`atoms <api-atoms>`, {ref}`cell <api-cell>`, {ref}`constants <api-constants>`, {ref}`diag <api-diag>`, {ref}`ham <api-ham>`, {ref}`kubo <api-kubo>`, {ref}`kuboarrays <api-kuboarrays>`, {ref}`kubosubs <api-kubosubs>`, {ref}`magf <api-magf>`, {ref}`math <api-math>`, {ref}`mio <api-mio>`, {ref}`moireBLShift <api-moireblshift>`, {ref}`name <api-name>`, {ref}`neigh <api-neigh>`, {ref}`scf <api-scf>`, {ref}`tbpar <api-tbpar>`
 :Used by: {ref}`grabnes <api-grabnes>`
 :Public interface: 1 procedure
-:Input keys: 93 reads (see the procedures below)
-
-## Procedure summary
-
-```{list-table}
-:header-rows: 1
-:class: api-table
-:widths: 36 64
-
-* - Procedure
-  - Description
-* - {ref}`CalcSelect <api-calc-calcselect>`
-  - —
-```
+:Input keys: 93 reads
 
 ## Procedures
 
-(api-calc-calcselect)=
-### `CalcSelect`
-
-```fortran
-subroutine CalcSelect()
-```
-
-```{rubric} Input keys read (6)
-```
-
 ```{list-table}
 :header-rows: 1
 :class: api-table
-:widths: 34 66
+:widths: 34 14 52
 
-* - Key
-  - Description
-* - `moireBLShift.Calc`
-  - Sweep over rigid layer shifts (Moire.BLShiftDefinedValues or Moire.BLShiftRange): the on-site terms and the Kubo / Diag calculations are repeated for every shift.
-* - `Kubo.Calc`
-  - Run the recursion calculation (CalcKubo): DOS or local DOS, then the time evolution unless Calculate.OnlyDOS.
-* - `Diag.Calc`
-  - Run the diagonalisation calculations (CalcDiag): bands, DOS, spectral function, selected by the Calculate.\* keys.
-* - `Output.ReadDataFiles`
-  - Take the hoppings from the file generate.s (one 're im' pair per line, units of g0) instead of computing them; the Peierls phases of a magnetic field are added after reading.
-* - `Tunn.Calc`
-  - Write the interlayer sums T\_AA, T\_AB = -sum\_j t\_ij exp(i k.d\_ij) from each Species-1 atom of layer 1 to layer 2, at k = Tunn.BigKVecX/Y/Z (CalcTunn; files \<prefix>.TunnAAR, TunnAAI, TunnABR, TunnABI).
-* - `MagField.FrankMagneticField`
-  - Alternative Peierls gauge of HamHopMagneticField (ham.F90); read here but not used in this routine.
+* - Procedure
+  - Kind
+  - Summary
+* - {ref}`CalcSelect <api-calc-calcselect>`
+  - subroutine
+  - —
 ```
-
-Defined in [`lanczosKuboCode/Src/calc.F90, line 13`](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/calc.F90#L13).
 
 ## Input keys read by private procedures
 
 Procedures that are not part of the public interface but read input keys.
 
-**`CalcKubo`** (private, [source](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/calc.F90#L123))
+**`CalcKubo`** (private, [source](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/calc.F90#L123))
 
 ```{list-table}
 :header-rows: 1
@@ -152,7 +119,7 @@ Procedures that are not part of the public interface but read input keys.
   - Stop after the recursion DOS. Without it the Kubo time evolution (KuboTEvol) follows, which costs far more.
 ```
 
-**`CalcTunn`** (private, [source](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/calc.F90#L595))
+**`CalcTunn`** (private, [source](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/calc.F90#L595))
 
 ```{list-table}
 :header-rows: 1
@@ -171,7 +138,7 @@ Procedures that are not part of the public interface but read input keys.
   - Tunn.Calc: the written sums are divided by this number.
 ```
 
-**`CalcDiag`** (private, [source](https://github.com/gjung-group/grabnes/blob/7b24d6625d6373cee0d474c9abbec91499ab77e7/lanczosKuboCode/Src/calc.F90#L678))
+**`CalcDiag`** (private, [source](https://github.com/gjung-group/grabnes/blob/1e390c6ead7c835389ae89a599cb1f39e3fc691e/lanczosKuboCode/Src/calc.F90#L678))
 
 ```{list-table}
 :header-rows: 1
@@ -266,4 +233,10 @@ Procedures that are not part of the public interface but read input keys.
   - Bands.Path points are taken relative to graphene K = (2/3,1/3) of the graphene reciprocal lattice.
 * - `Hubbard.EnableSCF`
   - Self-consistent Hubbard term in two-spin runs. The module is unfinished: a two-spin diagonalisation is refused unless this is .false. (the default is .true.).
+```
+
+```{toctree}
+:hidden:
+
+calc/calcselect
 ```
