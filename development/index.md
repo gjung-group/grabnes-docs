@@ -37,26 +37,9 @@ independently in Python. Measured results for both compilers are in
 
 ## What is supported
 
-| Level | Meaning | Applies to |
-| --- | --- | --- |
-| Supported | Runs, is documented, and is reproduced by the test suite | The nine examples above (06 to 09 by `run_long_examples.sh`) |
-| Independently validated | Additionally checked against an analytic result or a second implementation | Hamiltonian assembly and bands of graphene, hBN monolayer, and twisted bilayers; Kubo DOS of graphene |
-| Research / experimental | Present in the source without sufficient validation for general use | Everything else, including transport, TAPW, spin-orbit, Berry curvature, graphene/hBN and multilayer models |
-
-The full classification, capability by capability, is in
+The support levels and the known limitations of the current code are on
+{doc}`../status`; the full classification, capability by capability, is in
 {doc}`functionality-status`.
-
-## Known limitations
-
-- One MPI process only; a run with more is refused. Parallelism is by OpenMP,
-  with the Intel build.
-- The Kubo solver is stochastic: results vary from run to run unless
-  `setSeed .true.` and `seedValue` are given.
-- The effective moire-potential model of graphene on hBN assembles a hopping
-  table that is not exactly Hermitian; the solver reports the size of the
-  asymmetry. See the validation document.
-- Many input keywords exist only for research workflows and are undocumented.
-  The example inputs and READMEs are the reference for the supported ones.
 
 ## Finding your way around the source
 
@@ -76,41 +59,8 @@ The code is parallelized with OpenMP.
 
 ## Development documents
 
-```{toctree}
-:maxdepth: 2
-
-functionality-status
-release-readiness
-cluster-build-and-validation
-coding-conventions
-output-style
-input-key-renaming-proposal
-licensing-audit
-citation-checklist
-software-paper-outline
-pre-announcement-changelog
-building-documentation
-soc-implementation
-hamhopping-restructuring
-tapw-chern-optimization
-known-issues/berry-curvature
-```
-
-| Document | Content |
-| --- | --- |
-| {doc}`functionality-status` | Every capability classified by the evidence that exists for it |
-| {doc}`release-readiness` | Checklist for the first announced release: what is complete, what needs a maintainer decision, what is optional |
-| {doc}`cluster-build-and-validation` | Build on Linux, test results for both compilers, defects fixed, independent Hamiltonian validation, parameters, performance |
-| {doc}`coding-conventions` | Conventions of the solver sources (modules, routines, the `debug.log` trace, `Section.Name` input keys) and the rules added by the tests |
-| {doc}`output-style` | Rules for everything the solver writes to `job.out`: module prefixes, section headers, debug output |
-| {doc}`input-key-renaming-proposal` | Table of the present and former names of the input keys; source of the renaming of October 2026 |
-| {doc}`licensing-audit` | The license decision (GPL-3.0-or-later), the notices found, and the open points |
-| {doc}`citation-checklist` | What `CITATION.cff` contains and what is deliberately absent |
-| {doc}`software-paper-outline` | Outline of a possible software paper |
-| {doc}`pre-announcement-changelog` | Chronological log of the consolidation work |
-| {doc}`building-documentation` | How to build the Sphinx/Doxygen documentation |
-| {doc}`soc-implementation`, {doc}`tapw-chern-optimization`, {doc}`known-issues/berry-curvature` | Notes on research functionality (spin-orbit terms, TAPW, Berry curvature) |
-| {doc}`hamhopping-restructuring` | State and plan of the `HamHopping`/`HamOnSite` source restructuring |
+The documents below are copied unchanged from `docs/development/` of the code
+repository.
 
 Terms used throughout:
 
@@ -120,3 +70,70 @@ Terms used throughout:
   result or a second implementation.
 - **Research / experimental**: present without sufficient validation for
   general use.
+
+### Status and validation
+
+What is tested and validated, and how the input keys were renamed.
+
+```{toctree}
+:caption: Status and validation
+:hidden:
+
+functionality-status
+cluster-build-and-validation
+input-key-renaming-proposal
+```
+
+| Document | Content |
+| --- | --- |
+| {doc}`functionality-status` | Every capability classified by the evidence that exists for it |
+| {doc}`cluster-build-and-validation` | Build on Linux, test results for both compilers, defects fixed, independent Hamiltonian validation, parameters, performance |
+| {doc}`input-key-renaming-proposal` | Table of the present and former names of the input keys; source of the renaming of October 2026 |
+
+### Working on the code
+
+Conventions and design notes for working on the solver sources.
+
+```{toctree}
+:caption: Working on the code
+:hidden:
+
+coding-conventions
+output-style
+building-documentation
+soc-implementation
+tapw-chern-optimization
+known-issues/berry-curvature
+hamhopping-restructuring
+```
+
+| Document | Content |
+| --- | --- |
+| {doc}`coding-conventions` | Conventions of the solver sources (modules, routines, the `debug.log` trace, `Section.Name` input keys) and the rules added by the tests |
+| {doc}`output-style` | Rules for everything the solver writes to `job.out`: module prefixes, section headers, debug output |
+| {doc}`building-documentation` | How to build the Sphinx/Doxygen documentation |
+| {doc}`soc-implementation`, {doc}`tapw-chern-optimization`, {doc}`known-issues/berry-curvature` | Notes on research functionality (spin-orbit terms, TAPW, Berry curvature) |
+| {doc}`hamhopping-restructuring` | State and plan of the `HamHopping`/`HamOnSite` source restructuring |
+
+### Project planning (internal notes)
+
+The maintainers' notes for the first release; they are mirrored for completeness.
+
+```{toctree}
+:caption: Project planning (internal notes)
+:hidden:
+
+release-readiness
+licensing-audit
+citation-checklist
+software-paper-outline
+pre-announcement-changelog
+```
+
+| Document | Content |
+| --- | --- |
+| {doc}`release-readiness` | Checklist for the first announced release: what is complete, what needs a maintainer decision, what is optional |
+| {doc}`licensing-audit` | The license decision (GPL-3.0-or-later), the notices found, and the open points |
+| {doc}`citation-checklist` | What `CITATION.cff` contains and what is deliberately absent |
+| {doc}`software-paper-outline` | Outline of a possible software paper |
+| {doc}`pre-announcement-changelog` | Chronological log of the consolidation work |
