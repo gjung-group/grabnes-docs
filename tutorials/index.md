@@ -11,6 +11,17 @@ they are, with the outputs and figures saved in them. The bar under each page
 title names the notebook and the cells the page shows, and links to the
 notebook in Google Colab and to its download.
 
+```{warning}
+These notebooks are a record of the 2023 workshop and the moiré course, shown
+as they were run. They were written for Google Colab with shared Google Drive
+folders (Intel compilers, inputs) prepared for the workshop, they use the
+input key names from before October 2026 (which still work, see
+{doc}`../user-guide/input-file`), and some of the links in them no longer
+resolve (for example `https://scqc.uos.ac.kr/grabnes/`). For the current code,
+build it as described in {doc}`../installation` and run the
+{doc}`../examples/index`; {doc}`../status` lists what is supported.
+```
+
 ```{toctree}
 :maxdepth: 1
 :caption: Twistronics 2023 workshop

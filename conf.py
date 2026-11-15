@@ -23,7 +23,15 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx_copybutton",
+    "notfound.extension",  # a real 404 page (GitHub Pages serves 404.html)
+    "sphinx_sitemap",      # sitemap.xml for search engines
 ]
+
+# The site lives under /grabnes-docs/ on GitHub Pages: absolute URLs for the
+# 404 page assets and the sitemap entries.
+html_baseurl = "https://gjung-group.github.io/grabnes-docs/"
+notfound_urls_prefix = "/grabnes-docs/"
+sitemap_url_scheme = "{link}"
 
 # Copy buttons on code blocks: strip shell prompts and Python REPL prompts.
 copybutton_prompt_text = r"\$ |>>> |\.\.\. "

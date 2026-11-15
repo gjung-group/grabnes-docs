@@ -6,6 +6,8 @@
 :caption: Contents
 
 installation
+status
+citing
 theory/index
 examples/index
 benchmarks/index
@@ -165,6 +167,13 @@ and the effect of Anderson disorder on the DOS.
 
 ::::
 
+```{important}
+GRABNES has no numbered release yet. The {doc}`examples/index` are tested on
+every change and reproduce their reference data; other functionality is
+research code of varying maturity. See {doc}`status` for what is supported and
+{doc}`citing` for how to cite the code.
+```
+
 ## Tight-binding models
 
 Several of the tight-binding models used in this code have been developed by
@@ -190,6 +199,13 @@ cluster — see {doc}`installation`.
 :align: center
 
 Open the interactive tutorial in Google Colab
+```
+
+```{note}
+The Colab notebook was set up for the Twistronics 2023 workshop and uses the
+key names from before October 2026; its shared resources may no longer be
+accessible. To run the current code, build it ({doc}`installation`) and start
+with the {doc}`examples/index`.
 ```
 
 ## Illustrations

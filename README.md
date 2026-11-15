@@ -45,8 +45,8 @@ related heterostructures.
 ## Current state
 
 The site is a Sphinx documentation tree whose **source directory is the
-repository root**, built with MyST-Markdown, nbsphinx (notebooks), the Furo theme, sphinx-design
-and sphinx-copybutton, and deployed to GitHub Pages by a GitHub Actions workflow.
+repository root**, built with MyST-Markdown, nbsphinx (notebooks), the Furo theme, sphinx-design,
+sphinx-copybutton, sphinx-notfound-page (404 page) and sphinx-sitemap, and deployed to GitHub Pages by a GitHub Actions workflow.
 The look is customized in `assets/static/grabnes.css` (Inter font, brand
 colours from the logo, landing-page hero, cards and tables, light and dark
 mode), `assets/static/grabnes.js` (line breaks for long identifiers in tables)
@@ -62,7 +62,8 @@ Sections:
 | Folder | Content |
 | --- | --- |
 | `conf.py` | Sphinx configuration (theme options, extensions, `{task}`/`{todo}` directives) |
-| `index.md`, `installation.md` | landing page, compile & Colab instructions |
+| `index.md`, `installation.md` | landing page; requirements, build, run and tests (quoted from the code repository README) and the 2023 Colab notebook |
+| `status.md`, `citing.md` | supported functionality and known limitations; citation, authors and license (quoted from the README and `CITATION.cff`) |
 | `theory/` | tight-binding models, moiré supercells, observables, TAPW procedure |
 | `examples/` | the supported examples of the code repository (01–11: getting started, moiré, ARPES) with figures and downloadable inputs |
 | `tutorials/` | the cells of the original Jupyter notebooks, shown unchanged with their saved outputs (not executed, rendered by nbsphinx): Twistronics 2023 workshop (introduction, graphene, bilayer/graphite, twisted bilayer, graphene on hBN) and the moiré-course notebooks (input files, tBG input files, plotting); `notebooks/` holds the original `.ipynb` files (Colab and download links) |

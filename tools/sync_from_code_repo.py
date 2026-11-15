@@ -25,6 +25,8 @@ tools/sync-state.json and any change is reported as MANUAL:
     docs/theory/tapw-procedure.tex    -> theory/tapw-procedure.md
     examples/README.md, examples/*/README.md -> examples/*.md
     tools/input/{gendata,parser,gendata_schema}.py -> user-guide/yaml-json-input.md
+    README.md, lanczosKuboCode/README.md -> installation.md, status.md, citing.md
+    CITATION.cff                      -> citing.md
 """
 
 from __future__ import annotations
@@ -43,6 +45,9 @@ ROOT = Path(__file__).resolve().parent.parent
 STATE = ROOT / "tools" / "sync-state.json"
 SRC_UNITS = "lanczosKuboCode/Src"
 WATCH = [
+    "README.md",
+    "CITATION.cff",
+    "lanczosKuboCode/README.md",
     "docs/development/README.md",
     "docs/theory/tapw-procedure.tex",
     "examples/README.md",

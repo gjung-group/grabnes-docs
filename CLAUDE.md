@@ -23,7 +23,7 @@ uv run python tools/sync_from_code_repo.py [--check]      # sync mirrored files 
 uv run python tools/gen_api_reference.py [--src PATH] [--out PATH]   # regenerate reference/units.md + reference/api/ (sync runs it)
 ```
 
-**Sync with the code repo.** The source of truth is `main` of `github.com/gjung-group/grabnes` (never a fork or the local `../grabnes`): `sync_from_code_repo.py` shallow-clones it with GitPython and mirrors `docs/development`, `docs/user-guide`, example inputs (→ `assets/downloads/examples/`), reference figures (→ `assets/images/examples/`) and regenerates the API reference (`reference/units.md`, `reference/api/`). `--check` only reports drift (exit 1). Hand-written pages derived from upstream (`development/index.md`, `theory/tapw-procedure.md`, `examples/*.md`) are tracked by upstream object hashes in `tools/sync-state.json`; the script prints `MANUAL` when their source changed — update them by hand, verbatim, then re-run to record the new baseline. The sync is run by hand (there is no automatic sync workflow). Last synced: `1e390c6`.
+**Sync with the code repo.** The source of truth is `main` of `github.com/gjung-group/grabnes` (never a fork or the local `../grabnes`): `sync_from_code_repo.py` shallow-clones it with GitPython and mirrors `docs/development`, `docs/user-guide`, example inputs (→ `assets/downloads/examples/`), reference figures (→ `assets/images/examples/`) and regenerates the API reference (`reference/units.md`, `reference/api/`). `--check` only reports drift (exit 1). Hand-written pages derived from upstream (`development/index.md`, `theory/tapw-procedure.md`, `examples/*.md`, `user-guide/yaml-json-input.md`, and `installation.md`/`status.md`/`citing.md` from the upstream `README.md`, `lanczosKuboCode/README.md` and `CITATION.cff`) are tracked by upstream object hashes in `tools/sync-state.json`; the script prints `MANUAL` when their source changed — update them by hand, verbatim, then re-run to record the new baseline. The sync is run by hand (there is no automatic sync workflow). Last synced: `1e390c6`.
 
 There are no tests or linters; "passes" means the `-W` Sphinx build succeeds.
 
@@ -49,24 +49,26 @@ grabnes/var/www/sphinx/grabnesDocs/    # the OLD (2022) Sphinx docs — raw mate
 
 ### The notebook content (primary source of prose)
 
-- `notebooks/Twistronics2023.ipynb` — the flagship tutorial (~25k chars of markdown): graphene (build cell, bands, DOS) → AB-stacked bilayer & bulk graphite → twisted bilayer graphene (commensurate cells, Hamiltonian, Lanczos DOS, flat bands) → graphene on hBN (input flags, Hamiltonian visualization, magnetic-field DOS with/without Anderson disorder). Colab-oriented (`drive.mount`, Intel oneAPI setup) — strip that scaffolding when migrating.
+- `notebooks/Twistronics2023.ipynb` — the flagship tutorial (~25k chars of markdown): graphene (build cell, bands, DOS) → AB-stacked bilayer & bulk graphite → twisted bilayer graphene (commensurate cells, Hamiltonian, Lanczos DOS, flat bands) → graphene on hBN (input flags, Hamiltonian visualization, magnetic-field DOS with/without Anderson disorder). Colab-oriented (`drive.mount`, Intel oneAPI setup); shown verbatim on the tutorial pages, with a warning on `tutorials/index.md` that it is a 2023 record.
 - `notebooks/grabnes2.ipynb`, `grabnes3.ipynb` — input-file tutorials (`Gendata_graphene.in`, `Gendata_moire.in`, `ReadXYZ` for relaxed structures).
 - `notebooks/results.ipynb` — plotting recipes (bands, DOS) in Python.
 - Supporting files worth migrating next to the tutorial pages: `Gendata.in`, `BLBL.mol`, `BLBL.frac/.cart`, `moire.fdf`, `sublattices.dat`, `GenMoire.f90_tBG_template.f90`, `PyToGrabnes.py`, `createXYZ.py`, `fracToCart.py`, `replaceFrac.py`, `graphene/` sample outputs. Skip binaries/`a.out`, `__pycache__`, `.ipynb_checkpoints`, `.DS_Store`.
 
-Known external links: Colab notebook `https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-`, related code `https://github.com/gjung-group/JeilJungGroupCodes.git`, `https://github.com/qtm-iisc/Twister`, ARPES paper `https://www.nature.com/articles/s41567-020-0974-x`. Author/copyright in old conf.py: Nicolas Leconte (2022), group: gjung-group (G. Jung, U. Liège).
+Known external links: Colab notebook `https://colab.research.google.com/drive/12_ofrjJi4pr6U9j-ER1WocYJkqxEffs-`, related code `https://github.com/gjung-group/JeilJungGroupCodes.git` (private: not linked on the site), `https://github.com/qtm-iisc/Twister`, ARPES paper `https://www.nature.com/articles/s41567-020-0974-x`. Author/copyright in old conf.py: Nicolas Leconte (2022), group: gjung-group (G. Jung, U. Liège).
 
 ## 4. Target website (agreed design decisions)
 
 - **Stack: modernized Sphinx** — MyST-Markdown sources (`myst-parser`), `nbsphinx` with execution off for the tutorial notebooks (its standard Jupyter-style cell rendering, unmodified; pandoc comes from `pypandoc-binary`, IPython provides the `ipython3` lexer), `sphinx-design`, `sphinxcontrib-bibtex` if references grow, **Furo** theme (as set in `conf.py`/`pyproject.toml`), MathJax for equations. Build via `sphinx-build`; deploy with GitHub Actions to GitHub Pages. `conf.py` also defines custom `{task}` and `{todo}` admonition directives (styled in `assets/static/grabnes.css`).
-- **Notebooks → tutorial pages**: the notebooks are shown verbatim (not converted to prose), outputs included. The original `.ipynb` files live unchanged in `tutorials/notebooks/` (downloads, not rendered). Every tutorial page `tutorials/<page>.ipynb` is a contiguous run of cells of one original notebook, copied byte for byte by `tools/notebook_pages.py` (split defined in its `PAGES`; `--check` runs in CI) and rendered by nbsphinx with the saved outputs. Never hand-edit or paraphrase these pages, and do not restyle the cells: use nbsphinx's own styling. `conf.py` adds only the page title, the source/Colab/Download toolbar and two render-time link fixes (the `PyToGrabnes.py` target; math in a link text written as its Unicode symbol, which pandoc cannot nest).py` link target, at render time.
+- **Notebooks → tutorial pages**: the notebooks are shown verbatim (not converted to prose), outputs included. The original `.ipynb` files live unchanged in `tutorials/notebooks/` (downloads, not rendered). Every tutorial page `tutorials/<page>.ipynb` is a contiguous run of cells of one original notebook, copied byte for byte by `tools/notebook_pages.py` (split defined in its `PAGES`; `--check` runs in CI) and rendered by nbsphinx with the saved outputs. Never hand-edit or paraphrase these pages, and do not restyle the cells: use nbsphinx's own styling. `conf.py` adds only the page title, the source/Colab/Download toolbar and two render-time link fixes (the `PyToGrabnes.py` target; math in a link text written as its Unicode symbol, which pandoc cannot nest).
 - **Layout**: the **repository root is the Sphinx source directory** — no `docs/` folder, no symlinks; every section is a real top-level folder:
 
 ```
 conf.py                    # project config (furo theme, myst, math, links)
 index.md                   # landing page: what GRABNES is + feature gallery
-installation.md            # compile (make.sys, Intel/gfortran, OMP) + Colab
-pyproject.toml             # deps (sphinx, furo, myst-parser, sphinx-design, ford); uv sync
+installation.md            # requirements, build, run, tests (quoted from the code repo README) + Colab
+status.md                  # capabilities, support levels, known limitations (quoted from the README)
+citing.md                  # citation, publications, authors, license (README + CITATION.cff)
+pyproject.toml             # deps (see rule 7); uv sync
 assets/                    # ALL binary/support files (single source of truth)
 ├── images/                # PNGs from grabnes/.../figures/ + examples/*/reference/
 ├── downloads/             # sample inputs, scripts, example folders
@@ -92,7 +94,7 @@ tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Fo
   Non-content markdown (`README.md`, `CLAUDE.md`), the old `grabnes/` tree and everything under `assets/downloads/` (its `README.md` files are data, not pages) are excluded in `conf.py`'s `exclude_patterns`.
 
 - Markdown pages cross-link with `{doc}` roles; images are referenced as `assets/images/...` (root pages) or `../assets/images/...` (section pages); downloads as `assets/downloads/...`.
-- Site tone: scientific documentation; every tutorial page ends with "Download this tutorial (.ipynb / input files)" links where sources exist.
+- Site tone: scientific documentation. Each tutorial page has a toolbar (added in `conf.py`) with "Open in Colab" and "Download .ipynb" links to its original notebook.
 
 ## 5. Migration map (old → new)
 
@@ -126,7 +128,7 @@ tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Fo
 4. Keep pages buildable: `uv run sphinx-build -b html -W --keep-going . _build` (from the repo root) must succeed with zero warnings before committing.
 5. Do not commit `_build/`, `public/`, `__pycache__`, `.ipynb_checkpoints`, `.DS_Store` (see `.gitignore`).
 6. The old tree under `grabnes/` stays read-only until migration is verified; delete it (and `grabnes.tar.gz`) only in a final, separate commit.
-7. Python tooling: declare deps in `pyproject.toml` (`sphinx`, `furo`, `myst-parser`, `nbsphinx`, `pypandoc-binary`, `ipython`, `sphinx-design`, `sphinx-copybutton`, `ford`, `gitpython`); `uv sync` builds `.venv` from `uv.lock`, and CI installs the same way.
+7. Python tooling: declare deps in `pyproject.toml` (`sphinx`, `furo`, `myst-parser`, `nbsphinx`, `pypandoc-binary`, `ipython`, `sphinx-design`, `sphinx-copybutton`, `sphinx-notfound-page`, `sphinx-sitemap`, `ford`, `gitpython`); `uv sync` builds `.venv` from `uv.lock`, and CI installs the same way.
 8. `reference/units.md` and `reference/api/*.md` are generated (Ford over upstream `main`, run on a comment-normalized temp copy, plus the Doxygen `@brief`/`@param` blocks and the `!! - \`Key\`:` input-key items of the sources, quoted verbatim): after upstream changes run `uv run python tools/sync_from_code_repo.py` and commit the result; never hand-edit these files.
 9. Commits: small, imperative-mood messages ("Add theory/models page…").
 
