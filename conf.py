@@ -120,7 +120,7 @@ html_theme_options = {
     "source_repository": "https://github.com/gjung-group/grabnes-docs/",
     "source_branch": "main",
     "source_directory": "",
-    "top_of_page_buttons": ["view"],
+    "top_of_page_buttons": ["view", "edit"],
     "navigation_with_keys": True,
     "footer_icons": [
         {
@@ -300,6 +300,29 @@ def _limit_nbsphinx_link_rewriting(app):
     ]
 
 
+# "Edit this page" (Furo). Pages mirrored verbatim from the code repository are
+# edited there, at their upstream path; generated pages and the tutorial
+# notebooks (byte-for-byte copies of the originals) have no edit button.
+_UPSTREAM_EDIT = "https://github.com/gjung-group/grabnes/edit/main/"
+_MIRRORED = {"development": ("docs/development/", {"index"}),
+             "user-guide": ("docs/user-guide/", {"index", "yaml-json-input"})}
+_NO_EDIT = ("reference/units", "reference/api/", "user-guide/input-keys")
+
+
+def _edit_link(app, pagename, templatename, context, doctree):
+    if "page_source_suffix" not in context:
+        return
+    section, _, rest = pagename.partition("/")
+    no_edit = pagename.startswith(_NO_EDIT) or (
+        section == "tutorials" and pagename in app.env.found_docs
+        and app.env.doc2path(pagename).suffix == ".ipynb")
+    if no_edit:
+        context["theme_top_of_page_buttons"] = ["view"]
+    elif section in _MIRRORED and rest not in _MIRRORED[section][1]:
+        context["theme_source_edit_link"] = (
+            _UPSTREAM_EDIT + _MIRRORED[section][0] + rest + context["page_source_suffix"])
+
+
 def setup(app):
     app.add_directive("task", Task)
     app.add_directive("todo", Todo)
@@ -307,4 +330,5 @@ def setup(app):
     app.connect("doctree-read", _notebook_page, priority=400)
     app.connect("source-read", _notebook_source)
     app.connect("build-finished", _copy_notebooks)
+    app.connect("html-page-context", _edit_link)
     _limit_nbsphinx_link_rewriting(app)

@@ -95,6 +95,7 @@ tools/gen_api_reference.py # regenerates reference/units.md + reference/api/ (Fo
 
 - Markdown pages cross-link with `{doc}` roles; images are referenced as `assets/images/...` (root pages) or `../assets/images/...` (section pages); downloads as `assets/downloads/...`.
 - Site tone: scientific documentation. Each tutorial page has a toolbar (added in `conf.py`) with "Open in Colab" and "Download .ipynb" links to its original notebook.
+- "Edit this page" (Furo's button, `_edit_link` in `conf.py`): hand-written pages edit in this repo; pages mirrored from the code repo (`development/*`, `user-guide/*` except the index pages and `yaml-json-input.md`) edit their upstream file in `gjung-group/grabnes`; generated pages (`reference/units.md`, `reference/api/`, `user-guide/input-keys.md`) and the tutorial notebook pages have no edit button.
 
 ## 5. Migration map (old → new)
 
